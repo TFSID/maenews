@@ -1,48 +1,28 @@
-"use client";
+import { useQuery } from "@tanstack/react-query";
+import { apiClient } from "../lib/apiClient";
+import { Article } from "../typing";
 
-import { useState, useEffect } from "react";
-import { Article } from "../types";
-import { mockArticles } from "../data/mockData";
+// Untuk mengambil banyak artikel (bisa filter kategori)
+export function useArticles(categorySlug?: string) {
+  return useQuery({
+    queryKey: ["articles", categorySlug],
+    queryFn: async () => {
+      const { data } = await apiClient.get<Article[]>("/articles", {
+        params: { category: categorySlug },
+      });
+      return data;
+    },
+  });
+}
 
-export function useArticles() {
-  const [articles] = useState<Article[]>(mockArticles);
-  const [filteredArticles, setFilteredArticles] = useState<Article[]>(mockArticles);
-  const [activeCategory, setActiveCategory] = useState("Semua");
-  const [searchQuery, setSearchQuery] = useState("");
-
-  useEffect(() => {
-    let filtered = articles;
-
-    // Filter by category
-    if (activeCategory !== "Semua") {
-      filtered = filtered.filter(article => article.category === activeCategory);
-    }
-
-    // Filter by search query
-    if (searchQuery) {
-      const query = searchQuery.toLowerCase();
-      filtered = filtered.filter(article =>
-        article.title.toLowerCase().includes(query) ||
-        article.excerpt.toLowerCase().includes(query) ||
-        article.tags.some(tag => tag.toLowerCase().includes(query))
-      );
-    }
-
-    setFilteredArticles(filtered);
-  }, [articles, activeCategory, searchQuery]);
-
-  const handleCategoryChange = (category: string) => {
-    setActiveCategory(category);
-  };
-
-  const handleSearch = (query: string) => {
-    setSearchQuery(query);
-  };
-
-  return {
-    articles: filteredArticles,
-    activeCategory,
-    handleCategoryChange,
-    handleSearch
-  };
+// Untuk mengambil detail satu artikel berdasarkan slug
+export function useArticle(slug: string) {
+  return useQuery({
+    queryKey: ["article", slug],
+    queryFn: async () => {
+      const { data } = await apiClient.get<Article>(`/articles/${slug}`);
+      return data;
+    },
+    enabled: !!slug, // Hanya jalan kalau slug ada isinya
+  });
 }

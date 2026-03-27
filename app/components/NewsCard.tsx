@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Clock } from "lucide-react";
-import { Article } from "../types";
+import { Article } from "@/app/typing";
 import { formatRelativeTime } from "../utils/dateUtils";
 import Link from "next/link";
 import Image from "next/image";
@@ -23,13 +23,13 @@ export function NewsCard({ article, index }: NewsCardProps) {
         transition={{ delay: index * 0.05, duration: 0.4 }}
       >
         {/* Kontainer Gambar */}
-        <div className="relative overflow-hidden rounded-xl aspect-video mb-3">
+        <div className="relative overflow-hidden aspect-video mb-3">
           <Image
             width={400}
             height={225}
-            src={article.imageUrl}
+            src={article.thumbnailUrl || article.imageUrl || ""}
             alt={article.title}
-            unoptimized 
+            unoptimized
             className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
           />
         </div>
