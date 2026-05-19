@@ -1,6 +1,6 @@
 
 import { motion } from "framer-motion";
-import { Article } from "../types";
+import { Article } from "@/app/typing";
 import { NewsCard } from "./NewsCard";
 
 interface NewsGridProps {

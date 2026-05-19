@@ -9,6 +9,18 @@ const nextConfig = {
         port: "",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "picsum.photos",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "golang-maenews-animae-id2569-ksgm0g96.leapcell.dev",
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
 };

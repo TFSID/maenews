@@ -1,13 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { Button } from "./ui/button";
-import { Calendar, MapPin, Ticket } from "lucide-react";
-import { Event } from "@/app/types";
-import Link from "next/link";
+import { Event } from "@/app/typing";
 
-// Tipe data untuk sisa waktu
 interface TimeLeft {
   days: number;
   hours: number;
@@ -15,21 +10,8 @@ interface TimeLeft {
   seconds: number;
 }
 
-// Komponen untuk menampilkan satu unit waktu
-const CountdownUnit = ({ value, label }: { value: number; label: string }) => (
-  <div className="flex flex-col items-center">
-    <span className="text-3xl md:text-4xl font-bold text-white drop-shadow-md">
-      {String(value).padStart(2, "0")}
-    </span>
-    <span className="text-xs uppercase tracking-wider text-gray-200">
-      {label}
-    </span>
-  </div>
-);
-
-// Komponen sekarang menerima array 'events'
 interface EventBannerProps {
-  events?: Event[]; // Array acara, sudah diurutkan dari yang terdekat
+  events?: Event[];
 }
 
 export function EventBanner({ events }: EventBannerProps) {
@@ -37,16 +19,15 @@ export function EventBanner({ events }: EventBannerProps) {
   const [timeLeft, setTimeLeft] = useState<TimeLeft | null>(null);
   const [isClient, setIsClient] = useState(false);
 
-  // Menentukan acara yang sedang aktif berdasarkan indeks
   const activeEvent = events?.[currentEventIndex];
 
   useEffect(() => {
     setIsClient(true);
 
-    if (!activeEvent?.date) return;
+    if (!activeEvent?.startDate) return;
 
     const calculateTimeLeft = (): TimeLeft | null => {
-      const eventDate = new Date(activeEvent.date);
+      const eventDate = new Date(activeEvent.startDate);
       const difference = +eventDate - +new Date();
       if (difference > 0) {
         return {
@@ -59,92 +40,75 @@ export function EventBanner({ events }: EventBannerProps) {
       return null;
     };
 
-    // Set waktu awal
     setTimeLeft(calculateTimeLeft());
 
     const timer = setInterval(() => {
       const newTimeLeft = calculateTimeLeft();
       setTimeLeft(newTimeLeft);
 
-      // LOGIKA BARU: Jika waktu habis, pindah ke event berikutnya
       if (newTimeLeft === null) {
         if (events && currentEventIndex < events.length - 1) {
           setCurrentEventIndex((prevIndex) => prevIndex + 1);
         }
-        clearInterval(timer); // Hentikan timer untuk event yang sudah lewat
+        clearInterval(timer);
       }
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [activeEvent, events, currentEventIndex]); // Jalankan ulang efek jika acara aktif berubah
+  }, [activeEvent, events, currentEventIndex]);
 
-  // Jika tidak ada event sama sekali, jangan render banner
-  if (!activeEvent) {
-    return null;
-  }
+  if (!activeEvent) return null;
 
   return (
-    <motion.section
-      className="relative rounded-2xl p-1 sm:p-2 overflow-hidden bg-gradient-to-br from-orange-500 to-red-600"
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.5 }}
-    >
-      {/* ... (Elemen dekoratif tetap sama) ... */}
-      <div className="absolute inset-0 overflow-hidden rounded-xl">
-        <motion.div
-          className="absolute -top-1/4 -left-1/4 w-1/2 h-1/2 bg-white/5 rounded-full"
-          animate={{ y: [0, 20, 0], x: [0, -10, 0] }}
-          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute -bottom-1/4 -right-1/4 w-1/2 h-1/2 bg-white/5 rounded-full"
-          animate={{ y: [0, -20, 0], x: [0, 10, 0] }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 5,
-          }}
-        />
+    <section className="bg-white shadow-sm border border-gray-100 px-6 py-6 sm:py-8">
+      {/* Event Title & Location */}
+      <div className="flex items-center justify-center gap-2 mb-4">
+        <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+        <h3 className="text-sm sm:text-base font-bold text-[#090909]">
+          {activeEvent.title}, {activeEvent.location}
+        </h3>
       </div>
 
-      <div className="relative z-10 flex flex-col items-center justify-center text-center text-white min-h-[250px] p-6">
-        <div className="flex items-center gap-2">
-          <Calendar className="w-5 h-5" />
-          <h2 className="text-xl font-bold">{activeEvent.title}</h2>
-        </div>
-
-        <div className="flex items-center gap-1.5 text-gray-200 text-sm mt-1 mb-2">
-          <MapPin className="w-4 h-4" />
-          <span>{activeEvent.location}</span>
-        </div>
-
-        {isClient && timeLeft ? (
-          <div className="flex items-center gap-4 sm:gap-8 my-4">
-            <CountdownUnit value={timeLeft.days} label="Hari" />
-            <CountdownUnit value={timeLeft.hours} label="Jam" />
-            <CountdownUnit value={timeLeft.minutes} label="Menit" />
-            <CountdownUnit value={timeLeft.seconds} label="Detik" />
+      {/* Countdown */}
+      {isClient && timeLeft ? (
+        <div className="flex flex-col items-center gap-5">
+          <div className="flex items-center justify-center gap-3 sm:gap-6">
+            {[
+              { value: timeLeft.days, label: "Hari" },
+              { value: timeLeft.hours, label: "Jam" },
+              { value: timeLeft.minutes, label: "Menit" },
+              { value: timeLeft.seconds, label: "Detik" },
+            ].map((unit, i) => (
+              <div key={unit.label} className="flex items-center gap-3 sm:gap-6">
+                <div className="flex flex-col items-center">
+                  <span className="text-3xl sm:text-5xl font-black text-primary tabular-nums">
+                    {String(unit.value).padStart(2, "0")}
+                  </span>
+                  <span className="text-[10px] sm:text-xs font-bold text-primary uppercase mt-1">
+                    {unit.label}
+                  </span>
+                </div>
+                {i < 3 && (
+                  <span className="text-3xl sm:text-5xl font-black text-primary -mt-5 sm:-mt-6">:</span>
+                )}
+              </div>
+            ))}
           </div>
-        ) : (
-          <p className="text-2xl font-bold my-4">
-            {isClient ? "Acara Telah Berlangsung!" : "Menghitung waktu..."}
-          </p>
-        )}
-
-        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-          <Link href={`/event/${activeEvent.slug}`}>
-            <Button
-              size="lg"
-              className="cursor-pointer bg-yellow-400 hover:bg-yellow-500 rounded-full font-bold text-yellow-900 px-8 py-6 text-base"
-            >
-              <Ticket className="w-5 h-5 mr-2" />
-              Lihat Detail Event
-            </Button>
-          </Link>
-        </motion.div>
-      </div>
-    </motion.section>
+          <a
+            href={`/event/${activeEvent.slug}`}
+            className="inline-flex items-center gap-1.5 px-5 py-2 text-xs font-bold text-primary border-2 border-primary hover:bg-primary hover:text-white transition-all duration-200 uppercase tracking-wider"
+          >
+            Lihat Detail Event
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="9,18 15,12 9,6" />
+            </svg>
+          </a>
+        </div>
+      ) : (
+        <p className="text-center text-lg font-bold text-[#090909]">
+          {isClient ? "Acara Telah Berlangsung!" : "Menghitung waktu..."}
+        </p>
+      )}
+    </section>
   );
 }
