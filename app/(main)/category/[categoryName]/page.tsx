@@ -2,8 +2,18 @@ import { getArticlesByCategory, getTrendingItems, getUpcomingEvents } from "@/ap
 import { CategoryPageLayout } from "@/app/components/pages/CategoryPageLayout";
 import { EmptyState } from "@/app/components/ui/EmptyState";
 
-export default async function CategoryPage({ params }: { params: { categoryName: string } }) {
-  const categorySlug = decodeURIComponent(params.categoryName);
+export default async function CategoryPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ categoryName: string }>;
+  searchParams?: Promise<{ page?: string }>;
+}) {
+  const { categoryName } = await params;
+  const query = await searchParams;
+  const categorySlug = decodeURIComponent(categoryName);
+  const currentPage = parsePage(query?.page);
+  const perPage = 9;
 
   const [articles, trending, events] = await Promise.all([
     getArticlesByCategory(categorySlug),
@@ -13,6 +23,12 @@ export default async function CategoryPage({ params }: { params: { categoryName:
 
   // Format title (e.g., "content-creator" -> "Content Creator")
   const title = categorySlug.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+  const totalPages = Math.max(1, Math.ceil((articles?.length ?? 0) / perPage));
+  const safePage = Math.min(currentPage, totalPages);
+  const paginatedArticles = (articles ?? []).slice(
+    (safePage - 1) * perPage,
+    safePage * perPage
+  );
 
   if (!articles || articles.length === 0) {
     return (
@@ -28,9 +44,20 @@ export default async function CategoryPage({ params }: { params: { categoryName:
   return (
     <CategoryPageLayout
       categoryName={title}
-      articles={articles}
+      articles={paginatedArticles}
       trendingItems={trending ?? []}
       upcomingEvents={events ?? []}
+      currentPage={safePage}
+      totalPages={totalPages}
+      basePath={`/category/${categorySlug}`}
     />
   );
+}
+
+function parsePage(page?: string) {
+  const value = Number(page);
+  if (!Number.isInteger(value) || value < 1) {
+    return 1;
+  }
+  return value;
 }

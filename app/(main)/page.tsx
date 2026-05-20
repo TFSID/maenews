@@ -1,4 +1,3 @@
-import dynamic from "next/dynamic";
 import { Hero } from "../components/pages/Hero";
 import { Sidebar } from "../components/layout/Sidebar";
 import { EventBanner } from "../components/BannerEvent";
@@ -9,16 +8,7 @@ import {
   getUpcomingEvents,
 } from "../lib/api";
 import { ArticleFeed } from "../components/pages/ArticleFeed";
-
-const SliderNews = dynamic(
-  () => import("../components/slider/SliderNews").then((mod) => mod.SliderNews),
-  {
-    loading: () => (
-      <div className="h-[300px] w-full bg-primary animate-pulse" />
-    ),
-    ssr: false,
-  }
-);
+import { SliderNewsClient } from "../components/slider/SliderNewsClient";
 
 export default async function HomePage() {
   const [allArticles, trendingItems, upcomingEvents] = await Promise.all([
@@ -62,7 +52,7 @@ export default async function HomePage() {
       </div>
 
       {/* 4. Rekomendasi Carousel (Full Width Orange) */}
-      <SliderNews articles={recommendationArticles} title="Rekomendasi" />
+      <SliderNewsClient articles={recommendationArticles} title="Rekomendasi" />
 
       {/* 5. More Articles After Rekomendasi */}
       <div className="container mx-auto px-4 lg:px-8 xl:px-[150px] py-8">

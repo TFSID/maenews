@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { Article, TrendingItem, Event } from "@/app/typing";
 import { HeroCard } from "@/app/components/HeroCard";
-import { LatestNewsSection } from "@/app/components/article/LatestNewsSection";
 import { Sidebar } from "@/app/components/layout/Sidebar";
 import { LatestNewsArticle } from "@/app/components/article/LatestNewsArticle";
 import { Breadcrumb } from "@/app/components/ui/Breadcrumb";
@@ -13,6 +12,9 @@ interface CategoryPageLayoutProps {
     articles: Article[];
     trendingItems: TrendingItem[];
     upcomingEvents: Event[];
+    currentPage: number;
+    totalPages: number;
+    basePath: string;
 }
 
 export function CategoryPageLayout({
@@ -20,11 +22,13 @@ export function CategoryPageLayout({
     articles,
     trendingItems,
     upcomingEvents,
+    currentPage,
+    totalPages,
+    basePath,
 }: CategoryPageLayoutProps) {
-    // Split articles: top 3 for carousel, rest for Terbaru + feed
+    // Split 9 articles per page: top 3 for carousel, rest for article list.
     const carouselArticles = articles.slice(0, 3);
-    const terbaruArticles = articles.slice(3, 8);
-    const remainingArticles = articles.slice(8);
+    const listArticles = articles.slice(3, 9);
 
     return (
         <>
@@ -72,18 +76,19 @@ export function CategoryPageLayout({
                 <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] xl:grid-cols-[1fr_340px] gap-8 lg:gap-10">
                     {/* Left — Articles */}
                     <div>
-                        {terbaruArticles.length > 0 && (
-                            <LatestNewsSection title="Terbaru" articles={terbaruArticles} />
-                        )}
-
-                        {/* Remaining articles (continuation) */}
-                        {remainingArticles.length > 0 && (
+                        {listArticles.length > 0 && (
                             <div className="flex flex-col gap-6 mt-6">
-                                {remainingArticles.map((article) => (
+                                {listArticles.map((article) => (
                                     <LatestNewsArticle key={article.id} article={article} />
                                 ))}
                             </div>
                         )}
+
+                        <CategoryPagination
+                            basePath={basePath}
+                            currentPage={currentPage}
+                            totalPages={totalPages}
+                        />
                     </div>
 
                     {/* Right — Sidebar */}
@@ -96,5 +101,47 @@ export function CategoryPageLayout({
                 </div>
             </div>
         </>
+    );
+}
+
+function CategoryPagination({
+    basePath,
+    currentPage,
+    totalPages,
+}: {
+    basePath: string;
+    currentPage: number;
+    totalPages: number;
+}) {
+    if (totalPages <= 1) return null;
+
+    const pageHref = (page: number) => (page === 1 ? basePath : `${basePath}?page=${page}`);
+
+    return (
+        <div className="mt-8 flex items-center justify-center gap-4">
+            <Link
+                href={pageHref(Math.max(1, currentPage - 1))}
+                aria-disabled={currentPage === 1}
+                className={`border px-4 py-2 text-sm font-black uppercase tracking-wide transition ${currentPage === 1
+                    ? "pointer-events-none border-gray-100 text-gray-300"
+                    : "border-gray-200 text-[#090909] hover:border-primary hover:text-primary"
+                    }`}
+            >
+                Prev
+            </Link>
+            <span className="text-sm font-bold text-[#090909]">
+                Halaman {currentPage} dari {totalPages}
+            </span>
+            <Link
+                href={pageHref(Math.min(totalPages, currentPage + 1))}
+                aria-disabled={currentPage === totalPages}
+                className={`border px-4 py-2 text-sm font-black uppercase tracking-wide transition ${currentPage === totalPages
+                    ? "pointer-events-none border-gray-100 text-gray-300"
+                    : "border-gray-200 text-[#090909] hover:border-primary hover:text-primary"
+                    }`}
+            >
+                Next
+            </Link>
+        </div>
     );
 }

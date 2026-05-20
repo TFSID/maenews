@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, KeyboardEvent } from "react";
+import { useEffect, useState, useRef, KeyboardEvent } from "react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { navItems } from "@/app/data/Navigation";
@@ -8,9 +8,14 @@ import { navItems } from "@/app/data/Navigation";
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const pathname = usePathname();
+
+  useEffect(() => {
+    setIsAuthenticated(Boolean(localStorage.getItem("maenews_auth")));
+  }, [pathname]);
 
   const handleSearchSubmit = () => {
     const q = searchQuery.trim();
@@ -86,6 +91,13 @@ export function Header() {
               </button>
             </div>
 
+            <Link
+              href={isAuthenticated ? "/dashboard" : "/login"}
+              className="hidden h-8 items-center justify-center bg-[#090909] px-4 text-[11px] font-black uppercase tracking-wider text-white transition hover:bg-primary md:inline-flex"
+            >
+              {isAuthenticated ? "Dashboard" : "Login"}
+            </Link>
+
             {/* Mobile Hamburger — smooth animated bars → X */}
             <button
               className="md:hidden relative w-[22px] h-[18px] p-0 bg-transparent border-none cursor-pointer"
@@ -158,6 +170,13 @@ export function Header() {
                   {item.label}
                 </Link>
               ))}
+              <Link
+                href={isAuthenticated ? "/dashboard" : "/login"}
+                onClick={() => setIsOpen(false)}
+                className="px-3 py-2.5 text-sm font-bold uppercase text-[#090909] transition-colors duration-200 hover:bg-gray-50"
+              >
+                {isAuthenticated ? "Dashboard" : "Login"}
+              </Link>
             </div>
           </div>
         </div>

@@ -20,6 +20,11 @@
 # production
 /build
 
+# golang api runtime data
+/backend-go/data/
+/backend-go/uploads/*
+!/backend-go/uploads/.gitkeep
+
 # misc
 .DS_Store
 *.pem
