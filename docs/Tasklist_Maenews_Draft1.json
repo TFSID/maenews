@@ -1,0 +1,134 @@
+{
+  "workbook_metadata": {
+    "file_path": "docs/Tasklist_Maenews_Draft1.xlsx",
+    "folder_creation_instruction": "mkdir -p docs/",
+    "generated_for": "Implementation Plan & Review",
+    "is_unique_draft": true,
+    "total_sheets": 4
+  },
+  "sheets": [
+    {
+      "sheet_name": "Executive Dashboard",
+      "description": "Ringkasan metrik (Overall Progress, Tasks by Status, Bottlenecks).",
+      "headers": ["Metric", "Value", "Status", "Notes"],
+      "rows": [
+        {
+          "Metric": "Overall Project Progress",
+          "Value": "0%",
+          "Status": "Not Started",
+          "Notes": "Initial setup phase"
+        },
+        {
+          "Metric": "Total Tasks",
+          "Value": "8",
+          "Status": "Pending",
+          "Notes": "Extracted from architecture and requirements"
+        }
+      ]
+    },
+    {
+      "sheet_name": "Master Tasklist",
+      "description": "Repositori utama pekerjaan yang di-generate dari repository codebase.",
+      "headers": ["Task ID", "Deskripsi", "PIC", "Prioritas", "Status", "Timeline"],
+      "rows": [
+        {
+          "Task ID": "TSK-001",
+          "Deskripsi": "Implementasi Strategy Pattern (Mock/Live API) pada lib/api.ts sesuai environment NEXT_PUBLIC_API_MODE",
+          "PIC": "Frontend Engineer",
+          "Prioritas": "High",
+          "Status": "To Do",
+          "Timeline": "Sprint 1"
+        },
+        {
+          "Task ID": "TSK-002",
+          "Deskripsi": "Pengaturan TanStack Query untuk state management dan caching (query/apiArticles.ts, query/apiEvents.ts)",
+          "PIC": "Frontend Engineer",
+          "Prioritas": "High",
+          "Status": "To Do",
+          "Timeline": "Sprint 1"
+        },
+        {
+          "Task ID": "TSK-003",
+          "Deskripsi": "Pembuatan komponen UI atomik (Button, Input, Badge) menggunakan Tailwind CSS v4 dan Radix UI",
+          "PIC": "UI Developer",
+          "Prioritas": "Medium",
+          "Status": "To Do",
+          "Timeline": "Sprint 1"
+        },
+        {
+          "Task ID": "TSK-004",
+          "Deskripsi": "Pengembangan komponen ArticleFeed dengan fitur Infinite Scroll pada app/(main)/page.tsx",
+          "PIC": "Frontend Engineer",
+          "Prioritas": "High",
+          "Status": "To Do",
+          "Timeline": "Sprint 2"
+        },
+        {
+          "Task ID": "TSK-005",
+          "Deskripsi": "Pembuatan Gallery Masonry Layout dengan fitur Lightbox pada halaman /gallery",
+          "PIC": "Frontend Engineer",
+          "Prioritas": "Medium",
+          "Status": "To Do",
+          "Timeline": "Sprint 2"
+        },
+        {
+          "Task ID": "TSK-006",
+          "Deskripsi": "Implementasi Full-text search dengan fitur debouncing (hooks/useSearch.ts) untuk halaman /search",
+          "PIC": "Frontend Engineer",
+          "Prioritas": "High",
+          "Status": "To Do",
+          "Timeline": "Sprint 2"
+        },
+        {
+          "Task ID": "TSK-007",
+          "Deskripsi": "Pembuatan widget Event Countdown real-time untuk event mendatang pada komponen Sidebar",
+          "PIC": "Frontend Engineer",
+          "Prioritas": "Medium",
+          "Status": "To Do",
+          "Timeline": "Sprint 3"
+        },
+        {
+          "Task ID": "TSK-008",
+          "Deskripsi": "Konfigurasi SEO global (Open Graph, Twitter Card) di app/(main)/layout.tsx",
+          "PIC": "SEO Specialist",
+          "Prioritas": "High",
+          "Status": "To Do",
+          "Timeline": "Sprint 3"
+        }
+      ]
+    },
+    {
+      "sheet_name": "Sprint Update Tracker",
+      "description": "Log aktivitas harian/mingguan untuk proses tracking",
+      "headers": ["Date", "Task ID", "Update", "Blockers", "Next Steps"],
+      "rows": [
+        {
+          "Date": "TBD",
+          "Task ID": "TSK-001",
+          "Update": "Menunggu inisialisasi environment variable",
+          "Blockers": "None",
+          "Next Steps": "Buat file .env.local dan siapkan variabel yang dibutuhkan"
+        }
+      ]
+    },
+    {
+      "sheet_name": "Documentation & Resources",
+      "description": "Manajemen aset dan referensi internal",
+      "headers": ["Resource Name", "Type", "Location/URL", "Description"],
+      "rows": [
+        {
+          "Resource Name": "Architecture Guidelines",
+          "Type": "Markdown",
+          "Location/URL": "docs/ARCHITECTURE.md",
+          "Description": "Panduan arsitektur dan coding standards proyek"
+        },
+        {
+          "Resource Name": "API Contract",
+          "Type": "OpenAPI",
+          "Location/URL": "docs/openapi.yaml",
+          "Description": "Spesifikasi kontrak REST API untuk mode live"
+        }
+      ]
+    }
+  ]
+}
