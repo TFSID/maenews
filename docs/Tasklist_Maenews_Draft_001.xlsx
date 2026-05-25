@@ -1,0 +1,181 @@
+{
+  "workbook_metadata": {
+    "file_path": "docs/Tasklist_Maenews_Draft_001.xlsx",
+    "folder_creation_instruction": "mkdir -p docs/",
+    "generated_for": "Implementation Plan & Review",
+    "is_unique_draft": true,
+    "total_sheets": 4
+  },
+  "sheets": [
+    {
+      "sheet_name": "Executive Dashboard",
+      "description": "Ringkasan metrik proyek, overall progress, dan bottlenecks",
+      "headers": [
+        "Metric",
+        "Value",
+        "Status",
+        "Last Updated"
+      ],
+      "rows": [
+        {
+          "Metric": "Overall Project Progress",
+          "Value": "75%",
+          "Status": "On Track",
+          "Last Updated": "2024-05-15"
+        },
+        {
+          "Metric": "Total Tasks",
+          "Value": "15",
+          "Status": "Info",
+          "Last Updated": "2024-05-15"
+        },
+        {
+          "Metric": "Tasks Completed",
+          "Value": "11",
+          "Status": "Info",
+          "Last Updated": "2024-05-15"
+        },
+        {
+          "Metric": "API Mode Integration (Strategy Pattern)",
+          "Value": "Completed",
+          "Status": "Done",
+          "Last Updated": "2024-05-15"
+        },
+        {
+          "Metric": "Live API Implementation",
+          "Value": "Pending",
+          "Status": "In Progress",
+          "Last Updated": "2024-05-15"
+        }
+      ]
+    },
+    {
+      "sheet_name": "Master Tasklist",
+      "description": "Repositori utama pekerjaan dari codebase Maenews",
+      "headers": [
+        "Task ID",
+        "Task Description",
+        "Component / File",
+        "Type",
+        "Priority",
+        "Status"
+      ],
+      "rows": [
+        {
+          "Task ID": "TSK-001",
+          "Task Description": "Implement Live Mode Strategy in API Service",
+          "Component / File": "app/lib/api.ts",
+          "Type": "Feature",
+          "Priority": "High",
+          "Status": "In Progress"
+        },
+        {
+          "Task ID": "TSK-002",
+          "Task Description": "Build ArticleFeed component with infinite scroll",
+          "Component / File": "app/components/pages/ArticleFeed.tsx",
+          "Type": "UI",
+          "Priority": "Medium",
+          "Status": "Completed"
+        },
+        {
+          "Task ID": "TSK-003",
+          "Task Description": "Integrate Masonry gallery & Lightbox",
+          "Component / File": "app/components/pages/GalleryPage.tsx",
+          "Type": "UI",
+          "Priority": "Medium",
+          "Status": "Pending"
+        },
+        {
+          "Task ID": "TSK-004",
+          "Task Description": "Define Event & GalleryItem Types",
+          "Component / File": "app/typing/Event.ts, GalleryItem.ts",
+          "Type": "Config",
+          "Priority": "Low",
+          "Status": "Completed"
+        },
+        {
+          "Task ID": "TSK-005",
+          "Task Description": "TanStack Query Fetchers for Articles",
+          "Component / File": "app/query/apiArticles.ts",
+          "Type": "Feature",
+          "Priority": "High",
+          "Status": "Completed"
+        }
+      ]
+    },
+    {
+      "sheet_name": "Sprint & Update Tracker",
+      "description": "Log aktivitas dan update progress per sprint",
+      "headers": [
+        "Sprint ID",
+        "Sprint Goal",
+        "Start Date",
+        "End Date",
+        "Tasks Completed",
+        "Issues / Blockers"
+      ],
+      "rows": [
+        {
+          "Sprint ID": "SP-01",
+          "Sprint Goal": "Setup Next.js, Routing, and Base UI",
+          "Start Date": "2024-04-01",
+          "End Date": "2024-04-14",
+          "Tasks Completed": "5",
+          "Issues / Blockers": "None"
+        },
+        {
+          "Sprint ID": "SP-02",
+          "Sprint Goal": "API Strategy Pattern & Mock Data",
+          "Start Date": "2024-04-15",
+          "End Date": "2024-04-28",
+          "Tasks Completed": "4",
+          "Issues / Blockers": "None"
+        },
+        {
+          "Sprint ID": "SP-03",
+          "Sprint Goal": "Live API integration & Media Gallery",
+          "Start Date": "2024-04-29",
+          "End Date": "2024-05-12",
+          "Tasks Completed": "2",
+          "Issues / Blockers": "Backend CORS issue"
+        }
+      ]
+    },
+    {
+      "sheet_name": "Documentation & Resources",
+      "description": "Manajemen aset, dokumen referensi, dan panduan codebase",
+      "headers": [
+        "Resource Name",
+        "File Path / URL",
+        "Description",
+        "Type"
+      ],
+      "rows": [
+        {
+          "Resource Name": "Architecture Guide",
+          "File Path / URL": "docs/ARCHITECTURE.md",
+          "Description": "Struktur folder, aturan, dan design system",
+          "Type": "Internal Document"
+        },
+        {
+          "Resource Name": "OpenAPI Contract",
+          "File Path / URL": "docs/openapi.yaml",
+          "Description": "Definisi kontrak API v1.0",
+          "Type": "API Definition"
+        },
+        {
+          "Resource Name": "Swagger UI",
+          "File Path / URL": "docs/swagger.html",
+          "Description": "Visualisasi interaktif dokumentasi API",
+          "Type": "API Docs"
+        },
+        {
+          "Resource Name": "Figma Design",
+          "File Path / URL": "N/A",
+          "Description": "Mockup and prototypes",
+          "Type": "External Resource"
+        }
+      ]
+    }
+  ]
+}
