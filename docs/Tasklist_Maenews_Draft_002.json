@@ -1,0 +1,141 @@
+{
+  "workbook_metadata": {
+    "file_path": "docs/Tasklist_Maenews_Draft_002.xlsx",
+    "folder_creation_instruction": "mkdir -p docs/",
+    "generated_for": "Implementation Plan & Review",
+    "is_unique_draft": true,
+    "total_sheets": 4
+  },
+  "sheets": [
+    {
+      "sheet_name": "Executive Dashboard",
+      "description": "Ringkasan metrik proyek, overall progress, dan bottlenecks",
+      "headers": [
+        "Metric",
+        "Value",
+        "Status",
+        "Last Updated"
+      ],
+      "rows": [
+        {
+          "Metric": "Overall Project Progress",
+          "Value": "80%",
+          "Status": "On Track",
+          "Last Updated": "2024-05-28"
+        },
+        {
+          "Metric": "Total Tasks",
+          "Value": "5",
+          "Status": "Info",
+          "Last Updated": "2024-05-28"
+        },
+        {
+          "Metric": "UI Layout Components Integration",
+          "Value": "Pending",
+          "Status": "In Progress",
+          "Last Updated": "2024-05-28"
+        }
+      ]
+    },
+    {
+      "sheet_name": "Master Tasklist",
+      "description": "Repositori utama pekerjaan dari codebase Maenews",
+      "headers": [
+        "Task ID",
+        "Task Description",
+        "Component / File",
+        "Type",
+        "Priority",
+        "Status"
+      ],
+      "rows": [
+        {
+          "Task ID": "TSK-009",
+          "Task Description": "Implement Hero Bento Grid Layout on Homepage",
+          "Component / File": "app/components/pages/Hero.tsx",
+          "Type": "UI",
+          "Priority": "High",
+          "Status": "Pending"
+        },
+        {
+          "Task ID": "TSK-010",
+          "Task Description": "Develop Header Navigation and Search Bar",
+          "Component / File": "app/components/layout/Header.tsx",
+          "Type": "UI",
+          "Priority": "High",
+          "Status": "Pending"
+        },
+        {
+          "Task ID": "TSK-011",
+          "Task Description": "Create SliderNews Carousel Component",
+          "Component / File": "app/components/slider/SliderNews.tsx",
+          "Type": "UI",
+          "Priority": "Medium",
+          "Status": "Pending"
+        },
+        {
+          "Task ID": "TSK-012",
+          "Task Description": "Implement Date Formatting Helpers",
+          "Component / File": "app/utils/dateUtils.ts",
+          "Type": "Utility",
+          "Priority": "Low",
+          "Status": "Pending"
+        },
+        {
+          "Task ID": "TSK-013",
+          "Task Description": "Build Footer with Links & Socials",
+          "Component / File": "app/components/layout/Footer.tsx",
+          "Type": "UI",
+          "Priority": "Low",
+          "Status": "Pending"
+        }
+      ]
+    },
+    {
+      "sheet_name": "Sprint & Update Tracker",
+      "description": "Log aktivitas dan update progress per sprint",
+      "headers": [
+        "Sprint ID",
+        "Sprint Goal",
+        "Start Date",
+        "End Date",
+        "Tasks Completed",
+        "Issues / Blockers"
+      ],
+      "rows": [
+        {
+          "Sprint ID": "SP-04",
+          "Sprint Goal": "Finalize Core UI Layout Components",
+          "Start Date": "2024-05-28",
+          "End Date": "2024-06-10",
+          "Tasks Completed": "0",
+          "Issues / Blockers": "None"
+        }
+      ]
+    },
+    {
+      "sheet_name": "Documentation & Resources",
+      "description": "Manajemen aset, dokumen referensi, dan panduan codebase",
+      "headers": [
+        "Resource Name",
+        "File Path / URL",
+        "Description",
+        "Type"
+      ],
+      "rows": [
+        {
+          "Resource Name": "Architecture Guide",
+          "File Path / URL": "docs/ARCHITECTURE.md",
+          "Description": "Struktur folder, aturan, dan design system",
+          "Type": "Internal Document"
+        },
+        {
+          "Resource Name": "OpenAPI Contract",
+          "File Path / URL": "docs/openapi.yaml",
+          "Description": "Definisi kontrak API v1.0",
+          "Type": "API Definition"
+        }
+      ]
+    }
+  ]
+}
