@@ -1,15 +1,16 @@
 import { getArticleBySlug, getAllArticles, getTrendingItems, getUpcomingEvents } from "@/app/lib/api";
 import { ArticleDetailPage } from "@/app/components/pages/ArticleDetailPage";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { ArticleViewTracker } from "@/app/components/ArticleViewTracker";
 import { Metadata } from "next";
 
 type Props = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const article = await getArticleBySlug(params.slug);
+  const { slug } = await params;
+  const article = await getArticleBySlug(slug);
   if (!article) {
     return { title: "Artikel Tidak Ditemukan — Maenews" };
   }
@@ -20,8 +21,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ArticlePage({ params }: Props) {
+  const { slug } = await params;
   const [article, allArticles, trendingItems, upcomingEvents] = await Promise.all([
-    getArticleBySlug(params.slug),
+    getArticleBySlug(slug),
     getAllArticles(),
     getTrendingItems(),
     getUpcomingEvents(),
@@ -29,6 +31,10 @@ export default async function ArticlePage({ params }: Props) {
 
   if (!article) {
     notFound();
+  }
+
+  if (article.slug !== slug) {
+    redirect(`/article/${article.slug}`);
   }
 
   // Artikel terkait: kategori sama, bukan artikel ini, max 4
@@ -43,7 +49,7 @@ export default async function ArticlePage({ params }: Props) {
 
   return (
     <>
-      <ArticleViewTracker slug={params.slug} />
+      <ArticleViewTracker slug={slug} />
       <ArticleDetailPage
         article={article}
         relatedArticles={relatedArticles}

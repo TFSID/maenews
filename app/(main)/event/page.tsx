@@ -14,6 +14,9 @@ export default async function EventsPage() {
       articles={articles ?? []}
       trendingItems={trending ?? []}
       upcomingEvents={events ?? []}
+      currentPage={1}
+      totalPages={1}
+      basePath="/event"
     />
   );
 }

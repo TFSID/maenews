@@ -25,6 +25,7 @@ export function ArticleHeader({ article }: { article: Article }) {
           src={article.thumbnailUrl || article.imageUrl || ""}
           alt={article.title}
           fill
+          unoptimized
           className="object-cover"
           priority
           sizes="(max-width: 1280px) 100vw, 900px"
