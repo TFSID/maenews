@@ -1,0 +1,159 @@
+Task Name,Phase,Status,Review Status,Time Needed
+"Define Palet Warna Admin",Fondasi Visual,Not started,Not Reviewed,2h
+"Define Primer, Sekunder, Neutral, Semantic",Fondasi Visual,Not started,Not Reviewed,1h
+"Define Tipografi Dashboard",Fondasi Visual,Not started,Not Reviewed,2h
+"Define Skala font tabel & form",Fondasi Visual,Not started,Not Reviewed,1h
+"Design Buttons & Links",Komponen UI Dasar,Not started,Not Reviewed,2h
+"Create Primary, Secondary, Outline, Ghost, Destructive",Komponen UI Dasar,Not started,Not Reviewed,2h
+"Design Form Inputs",Komponen UI Dasar,Not started,Not Reviewed,2h
+"Create Text Input, Textarea, Select, Checkbox, Toggle",Komponen UI Dasar,Not started,Not Reviewed,4h
+"Create State Hover, Focus, Disabled, Error",Komponen UI Dasar,Not started,Not Reviewed,2h
+"Design Data Display",Komponen UI Dasar,Not started,Not Reviewed,1h
+"Create Badge/Label status",Komponen UI Dasar,Not started,Not Reviewed,1h
+"Create Avatar placeholder",Komponen UI Dasar,Not started,Not Reviewed,1h
+"Design Data Tables",Komponen Kompleks,Not started,Not Reviewed,2h
+"Create Baris tabel, header sortable, paginasi",Komponen Kompleks,Not started,Not Reviewed,4h
+"Design Modals & Dialogs",Komponen Kompleks,Not started,Not Reviewed,2h
+"Create Modal konfirmasi & pop-up form",Komponen Kompleks,Not started,Not Reviewed,2h
+"Design WYSIWYG Editor Toolbar",Komponen Kompleks,Not started,Not Reviewed,2h
+"Create Toolbar editor kustom",Komponen Kompleks,Not started,Not Reviewed,4h
+"Design Feedback UI",Komponen Kompleks,Not started,Not Reviewed,1h
+"Create Toast Notification & Loading Skeleton",Komponen Kompleks,Not started,Not Reviewed,2h
+"Design Struktur Navigasi Utama",Arsitektur Layout,Not started,Not Reviewed,2h
+"Create Mockup Sidebar & Topbar",Arsitektur Layout,Not started,Not Reviewed,4h
+"Design Responsivitas Dashboard",Arsitektur Layout,Not started,Not Reviewed,2h
+"Create Layout Desktop vs Tablet",Arsitektur Layout,Not started,Not Reviewed,4h
+"Design Dashboard Home",Halaman & Alur Kerja,Not started,Not Reviewed,2h
+"Create Layout widget statistik & grafik",Halaman & Alur Kerja,Not started,Not Reviewed,4h
+"Design Alur Manajemen Konten (Artikel/Event)",Halaman & Alur Kerja,Not started,Not Reviewed,2h
+"Create Mockup daftar tabel + filter",Halaman & Alur Kerja,Not started,Not Reviewed,4h
+"Create Mockup halaman editor (split-view)",Halaman & Alur Kerja,Not started,Not Reviewed,4h
+"Design Media Library",Halaman & Alur Kerja,Not started,Not Reviewed,2h
+"Create Layout Grid & modal detail aset",Halaman & Alur Kerja,Not started,Not Reviewed,4h
+"Design Autentikasi",Halaman & Alur Kerja,Not started,Not Reviewed,1h
+"Create Mockup halaman login",Halaman & Alur Kerja,Not started,Not Reviewed,2h
+"Polish Definisi transisi antar halaman",Prototipe Interaktif,Not started,Not Reviewed,2h
+"Implement (Optional) Prototipe klik-tayang Figma",Prototipe Interaktif,Not started,Not Reviewed,1d
+"Setup Route Group CMS (app/(admin)/)",Routing,Not started,Not Reviewed,1h
+"Create Root Layout CMS (app/(admin)/layout.tsx)",Routing,Not started,Not Reviewed,2h
+"Implement Render html & body",Routing,Not started,Not Reviewed,30m
+"Implement Load AdminSidebar, AdminHeader, main",Routing,Not started,Not Reviewed,1h
+"Implement Proteksi/middleware session",Routing,Not started,Not Reviewed,2h
+"Create Halaman Utama Dashboard (app/(admin)/page.tsx)",Routing,Not started,Not Reviewed,1h
+"Create Struktur Halaman Entitas (CRUD Base)",Routing,Not started,Not Reviewed,2h
+"Create app/(admin)/article/page.tsx",Routing,Not started,Not Reviewed,1h
+"Create app/(admin)/article/create/page.tsx",Routing,Not started,Not Reviewed,1h
+"Create app/(admin)/article/[slug]/edit/page.tsx",Routing,Not started,Not Reviewed,2h
+"Create struktur replikasi untuk category, event, tag, gallery",Routing,Not started,Not Reviewed,1d
+"Create Layout Components (app/components/layout/admin/)",Komponen CMS,Not started,Not Reviewed,2h
+"Create AdminHeader.tsx",Komponen CMS,Not started,Not Reviewed,2h
+"Create AdminSidebar.tsx",Komponen CMS,Not started,Not Reviewed,2h
+"Create AdminClientLayout.tsx",Komponen CMS,Not started,Not Reviewed,1h
+"Create Pages Components (app/components/pages/admin/)",Komponen CMS,Not started,Not Reviewed,1h
+"Create DashboardPage.tsx",Komponen CMS,Not started,Not Reviewed,2h
+"Create ArticleManagementPage.tsx",Komponen CMS,Not started,Not Reviewed,2h
+"Create ArticleEditorPage.tsx",Komponen CMS,Not started,Not Reviewed,4h
+"Implement UI Components (app/components/ui/admin/)",Komponen CMS,Not started,Not Reviewed,1h
+"Reuse Komponen ui publik (Button, Input, dll)",Komponen CMS,Not started,Not Reviewed,1h
+"Create DataTable.tsx",Komponen CMS,Not started,Not Reviewed,4h
+"Create FormPageHeader.tsx",Komponen CMS,Not started,Not Reviewed,2h
+"Create Komponen Artikel (app/components/pages/admin/article/)",Komponen Pages per Modul,Not started,Not Reviewed,1h
+"Create ArticleManagementPage.tsx (article)",Komponen Pages per Modul,Not started,Not Reviewed,4h
+"Create ArticleEditorPage.tsx (article)",Komponen Pages per Modul,Not started,Not Reviewed,1d
+"Create Komponen Event (app/components/pages/admin/event/)",Komponen Pages per Modul,Not started,Not Reviewed,1h
+"Create EventManagementPage.tsx",Komponen Pages per Modul,Not started,Not Reviewed,4h
+"Create EventEditorPage.tsx",Komponen Pages per Modul,Not started,Not Reviewed,1d
+"Create Komponen Galeri Media (app/components/pages/admin/gallery/)",Komponen Pages per Modul,Not started,Not Reviewed,1h
+"Create GalleryManagementPage.tsx",Komponen Pages per Modul,Not started,Not Reviewed,4h
+"Create Komponen Pengaturan & Pengguna (app/components/pages/admin/settings/)",Komponen Pages per Modul,Not started,Not Reviewed,1h
+"Create AuthorProfilePage.tsx",Komponen Pages per Modul,Not started,Not Reviewed,4h
+"Create SiteSettingsPage.tsx",Komponen Pages per Modul,Not started,Not Reviewed,4h
+"Create TrendingManager.tsx",Komponen Pages per Modul,Not started,Not Reviewed,2h
+"Reuse Shared DataTable.tsx, FormPageHeader.tsx, ConfirmModal.tsx",Komponen Pages per Modul,Not started,Not Reviewed,1h
+"Create API Services (app/lib/apiAdmin.ts)",Data & Hooks,Not started,Not Reviewed,2h
+"Implement Instance Axios + Interceptor token",Data & Hooks,Not started,Not Reviewed,2h
+"Create Fetcher postArticle, putArticle, deleteArticle",Data & Hooks,Not started,Not Reviewed,2h
+"Implement TanStack Query (app/query/admin/)",Data & Hooks,Not started,Not Reviewed,1h
+"Create apiAdminArticles.ts",Data & Hooks,Not started,Not Reviewed,2h
+"Create Hook useAdminArticlesQuery",Data & Hooks,Not started,Not Reviewed,2h
+"Create Hook mutasi (useCreate/Update/DeleteArticleMutation)",Data & Hooks,Not started,Not Reviewed,4h
+"Implement onSuccess callback (invalidateQueries)",Data & Hooks,Not started,Not Reviewed,1h
+"Implement Replikasi untuk Events, Tags, Categories, Gallery",Data & Hooks,Not started,Not Reviewed,1d
+"Create Custom Hooks (app/hooks/admin/)",Data & Hooks,Not started,Not Reviewed,1h
+"Create useAdminPagination.ts",Data & Hooks,Not started,Not Reviewed,2h
+"Create useImageUpload.ts",Data & Hooks,Not started,Not Reviewed,2h
+"Update Types Definition (app/typing/)",Typing & Data Mocking,Not started,Not Reviewed,1h
+"Update Article.ts (interface CreateArticlePayload)",Typing & Data Mocking,Not started,Not Reviewed,1h
+"Define interface CreateEventPayload dll",Typing & Data Mocking,Not started,Not Reviewed,1h
+"Create Mock Data CMS (app/data/mocks-data/admin/mockAdminMutations.ts)",Typing & Data Mocking,Not started,Not Reviewed,2h
+"Implement Fungsi simulasi Promise + delay",Typing & Data Mocking,Not started,Not Reviewed,1h
+"Implement dukungan loading state & toast notification",Typing & Data Mocking,Not started,Not Reviewed,1h
+"Create Widget Statistik Ringkasan (Cards)",Modul Dashboard,Not started,Not Reviewed,4h
+"Implement Total artikel (Published & Draft)",Modul Dashboard,Not started,Not Reviewed,1h
+"Implement Total event aktif & mendatang",Modul Dashboard,Not started,Not Reviewed,1h
+"Implement Total aset galeri",Modul Dashboard,Not started,Not Reviewed,1h
+"Design Grafik Analitik Pengunjung",Modul Dashboard,Not started,Not Reviewed,2h
+"Implement Grafik tren kunjungan 7 hari",Modul Dashboard,Not started,Not Reviewed,4h
+"Create Tabel Aktivitas Terbaru",Modul Dashboard,Not started,Not Reviewed,2h
+"Implement Daftar 5-10 artikel terakhir",Modul Dashboard,Not started,Not Reviewed,2h
+"Polish Responsivitas dashboard",Modul Dashboard,Not started,Not Reviewed,2h
+"Create Halaman Daftar Artikel (List View)",Modul Manajemen Artikel,Not started,Not Reviewed,4h
+"Implement Toolbar Pencarian & Filter",Modul Manajemen Artikel,Not started,Not Reviewed,4h
+"Implement Kolom Tabel + Aksi",Modul Manajemen Artikel,Not started,Not Reviewed,2h
+"Create Halaman Editor Artikel (Create/Edit)",Modul Manajemen Artikel,Not started,Not Reviewed,1d
+"Implement Rich Text Editor",Modul Manajemen Artikel,Not started,Not Reviewed,1d
+"Design Sidebar Editor (kategori, tags, image, status, SEO)",Modul Manajemen Artikel,Not started,Not Reviewed,4h
+"Fix Validasi form",Modul Manajemen Artikel,Not started,Not Reviewed,2h
+"Create Halaman Daftar Event",Modul Manajemen Event,Not started,Not Reviewed,4h
+"Implement Indikator status event",Modul Manajemen Event,Not started,Not Reviewed,2h
+"Create Form Editor Event",Modul Manajemen Event,Not started,Not Reviewed,4h
+"Implement Input Tanggal & Waktu",Modul Manajemen Event,Not started,Not Reviewed,2h
+"Implement Input Lokasi (Online/Offline)",Modul Manajemen Event,Not started,Not Reviewed,2h
+"Implement Uploader Banner Event",Modul Manajemen Event,Not started,Not Reviewed,2h
+"Polish Pencarian event",Modul Manajemen Event,Not started,Not Reviewed,2h
+"Create Tampilan Media Library (Grid View)",Modul Galeri Media,Not started,Not Reviewed,4h
+"Implement Click to Preview",Modul Galeri Media,Not started,Not Reviewed,2h
+"Create Fitur Upload Media",Modul Galeri Media,Not started,Not Reviewed,4h
+"Implement Drag-and-Drop bulk upload",Modul Galeri Media,Not started,Not Reviewed,4h
+"Implement Progress bar per file",Modul Galeri Media,Not started,Not Reviewed,2h
+"Create Modal Detail/Edit Media",Modul Galeri Media,Not started,Not Reviewed,2h
+"Implement Edit Alt Text, Title, Caption",Modul Galeri Media,Not started,Not Reviewed,2h
+"Fix Hapus permanen + modal konfirmasi",Modul Galeri Media,Not started,Not Reviewed,2h
+"Create Manajemen Profil Penulis",Modul Pengaturan & Pengguna,Not started,Not Reviewed,4h
+"Implement Avatar, Bio, link sosial media",Modul Pengaturan & Pengguna,Not started,Not Reviewed,2h
+"Design Pengaturan Umum Situs",Modul Pengaturan & Pengguna,Not started,Not Reviewed,2h
+"Create Form Logo, Favicon, Nama Situs",Modul Pengaturan & Pengguna,Not started,Not Reviewed,2h
+"Implement Fitur ""Pin to Trending""",Modul Pengaturan & Pengguna,Not started,Not Reviewed,4h
+"Setup Sistem Autentikasi (NextAuth.js / Custom JWT)",Autentikasi Admin,Not started,Not Reviewed,1d
+"Implement Konfigurasi Provider",Autentikasi Admin,Not started,Not Reviewed,4h
+"Create Halaman Login CMS (app/(admin)/login/page.tsx)",Autentikasi Admin,Not started,Not Reviewed,2h
+"Implement Manajemen Session/Token",Autentikasi Admin,Not started,Not Reviewed,4h
+"Polish ""Remember Me"" & Session Timeout",Autentikasi Admin,Not started,Not Reviewed,2h
+"Integrate API Login",Autentikasi Admin,Not started,Not Reviewed,2h
+"Connect Form login ke /api/auth/login",Autentikasi Admin,Not started,Not Reviewed,2h
+"Create Middleware Proteksi Rute",Keamanan & Akses,Not started,Not Reviewed,4h
+"Implement Cek login di middleware.ts",Keamanan & Akses,Not started,Not Reviewed,2h
+"Fix Redirect ke /login jika session invalid",Keamanan & Akses,Not started,Not Reviewed,1h
+"Design Role-Based Access Control (RBAC)",Keamanan & Akses,Not started,Not Reviewed,4h
+"Define Izin Super Admin vs Editor/Penulis",Keamanan & Akses,Not started,Not Reviewed,2h
+"Implement Validasi Keamanan API",Keamanan & Akses,Not started,Not Reviewed,4h
+"Create Server-side checks",Keamanan & Akses,Not started,Not Reviewed,4h
+"Fix Proteksi CSRF & sanitasi input",Keamanan & Akses,Not started,Not Reviewed,2h
+"Setup TanStack Query di level Admin",Arsitektur Data,Not started,Not Reviewed,2h
+"Implement QueryClientProvider di AdminClientLayout.tsx",Arsitektur Data,Not started,Not Reviewed,1h
+"Create Axios Admin Instance",Arsitektur Data,Not started,Not Reviewed,2h
+"Implement Request Interceptors (Token Bearer)",Arsitektur Data,Not started,Not Reviewed,2h
+"Implement Response Interceptors (error 401)",Arsitektur Data,Not started,Not Reviewed,2h
+"Implement Integrasi API Artikel",Operasi CRUD,Not started,Not Reviewed,1h
+"Connect GET ke DataTable (pagination server-side)",Operasi CRUD,Not started,Not Reviewed,4h
+"Create useCreateArticleMutation",Operasi CRUD,Not started,Not Reviewed,2h
+"Create useUpdateArticleMutation",Operasi CRUD,Not started,Not Reviewed,2h
+"Create useDeleteArticleMutation",Operasi CRUD,Not started,Not Reviewed,2h
+"Implement Integrasi API Event, Kategori, Tags",Operasi CRUD,Not started,Not Reviewed,1d
+"Implement API Upload Media",Operasi CRUD,Not started,Not Reviewed,4h
+"Connect Uploader ke endpoint upload",Operasi CRUD,Not started,Not Reviewed,2h
+"Fix Penanganan respons URL",Operasi CRUD,Not started,Not Reviewed,1h
+"Create Sistem Toast Notification",Feedback & Notifikasi,Not started,Not Reviewed,2h
+"Implement Notifikasi sukses/gagal",Feedback & Notifikasi,Not started,Not Reviewed,1h
+"Design Loading States",Feedback & Notifikasi,Not started,Not Reviewed,1h
+"Create Skeletons / Overlay Spinner",Feedback & Notifikasi,Not started,Not Reviewed,2h
