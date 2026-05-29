@@ -1,0 +1,197 @@
+{
+  "workbook_metadata": {
+    "file_path": "docs/Tasklist_Maenews_8db4619b-6f5c-4980-8436-4518c4376ead.xlsx",
+    "folder_creation_instruction": "mkdir -p docs/",
+    "generated_for": "Implementation Plan & Review",
+    "is_unique_draft": true,
+    "total_sheets": 4
+  },
+  "sheets": [
+    {
+      "sheet_name": "Executive Dashboard",
+      "description": "Ringkasan metrik (Overall Progress, Tasks by Status, Bottlenecks)",
+      "headers": [
+        "Metric",
+        "Value",
+        "Notes"
+      ],
+      "rows": [
+        {
+          "Metric": "Overall Progress",
+          "Value": "0%",
+          "Notes": "Tahap inisiasi proyek"
+        },
+        {
+          "Metric": "Total Tasks",
+          "Value": "10",
+          "Notes": "Diekstrak dari README.md"
+        },
+        {
+          "Metric": "Tasks Completed",
+          "Value": "0",
+          "Notes": "Belum ada task yang diselesaikan"
+        },
+        {
+          "Metric": "Tasks In Progress",
+          "Value": "0",
+          "Notes": "Belum ada task berjalan"
+        },
+        {
+          "Metric": "Bottlenecks",
+          "Value": "None",
+          "Notes": "Semua sistem berjalan normal"
+        }
+      ]
+    },
+    {
+      "sheet_name": "Master Tasklist",
+      "description": "Repositori utama pekerjaan yang di-generate dari REPOSITORY_KNOWLEDGE",
+      "headers": [
+        "Task ID",
+        "Deskripsi",
+        "PIC",
+        "Prioritas",
+        "Status",
+        "Timeline"
+      ],
+      "rows": [
+        {
+          "Task ID": "TSK-001",
+          "Deskripsi": "Implementasi Next.js App Router (app/) dan global layout sesuai standar ARCHITECTURE.md",
+          "PIC": "Frontend Engineer",
+          "Prioritas": "High",
+          "Status": "To Do",
+          "Timeline": "Sprint 1"
+        },
+        {
+          "Task ID": "TSK-002",
+          "Deskripsi": "Membangun Homepage Dinamis dengan Hero bento grid, section Terbaru, dan infinite scroll artikel",
+          "PIC": "Frontend Engineer",
+          "Prioritas": "High",
+          "Status": "To Do",
+          "Timeline": "Sprint 1"
+        },
+        {
+          "Task ID": "TSK-003",
+          "Deskripsi": "Pengembangan Halaman Detail Artikel dengan fitur tags, view counter, dan related articles",
+          "PIC": "Frontend Engineer",
+          "Prioritas": "High",
+          "Status": "To Do",
+          "Timeline": "Sprint 2"
+        },
+        {
+          "Task ID": "TSK-004",
+          "Deskripsi": "Pembuatan Halaman Kategori dengan horizontal carousel menggunakan Embla Carousel",
+          "PIC": "Frontend Engineer",
+          "Prioritas": "Medium",
+          "Status": "To Do",
+          "Timeline": "Sprint 2"
+        },
+        {
+          "Task ID": "TSK-005",
+          "Deskripsi": "Implementasi Fitur Pencarian Full-text search (mencakup judul, excerpt, dan tags)",
+          "PIC": "Fullstack Engineer",
+          "Prioritas": "High",
+          "Status": "To Do",
+          "Timeline": "Sprint 3"
+        },
+        {
+          "Task ID": "TSK-006",
+          "Deskripsi": "Pembuatan Galeri Media (Pinterest-style masonry) dilengkapi fitur lightbox & filter kategori",
+          "PIC": "Frontend Engineer",
+          "Prioritas": "Medium",
+          "Status": "To Do",
+          "Timeline": "Sprint 3"
+        },
+        {
+          "Task ID": "TSK-007",
+          "Deskripsi": "Pengembangan Halaman Event dan integrasi fitur Event Countdown Banner real-time",
+          "PIC": "Frontend Engineer",
+          "Prioritas": "Medium",
+          "Status": "To Do",
+          "Timeline": "Sprint 4"
+        },
+        {
+          "Task ID": "TSK-008",
+          "Deskripsi": "Konfigurasi Strategy Pattern untuk API (Mock vs Live) menggunakan NEXT_PUBLIC_API_MODE",
+          "PIC": "Backend Engineer",
+          "Prioritas": "High",
+          "Status": "To Do",
+          "Timeline": "Sprint 1"
+        },
+        {
+          "Task ID": "TSK-009",
+          "Deskripsi": "Integrasi TanStack Query untuk state management dan caching fetcher (apiArticles, apiEvents)",
+          "PIC": "Frontend Engineer",
+          "Prioritas": "High",
+          "Status": "To Do",
+          "Timeline": "Sprint 2"
+        },
+        {
+          "Task ID": "TSK-010",
+          "Deskripsi": "Penerapan standar SEO-first (Open Graph, Twitter Card, Sitemap, Structured metadata)",
+          "PIC": "SEO Specialist",
+          "Prioritas": "Medium",
+          "Status": "To Do",
+          "Timeline": "Sprint 4"
+        }
+      ]
+    },
+    {
+      "sheet_name": "Sprint/Update Tracker",
+      "description": "Log aktivitas harian/mingguan untuk proses tracking",
+      "headers": [
+        "Sprint ID",
+        "Task ID",
+        "Update Date",
+        "Activity Description",
+        "Blocker"
+      ],
+      "rows": [
+        {
+          "Sprint ID": "Sprint 1",
+          "Task ID": "TSK-001",
+          "Update Date": "2023-10-24",
+          "Activity Description": "Inisiasi proyek dengan setup TailwindCSS v4 dan konfigurasi arsitektur folder app/",
+          "Blocker": "None"
+        }
+      ]
+    },
+    {
+      "sheet_name": "Documentation & Resources",
+      "description": "Manajemen aset dan referensi internal",
+      "headers": [
+        "Resource Name",
+        "Type",
+        "Link/Path",
+        "Description"
+      ],
+      "rows": [
+        {
+          "Resource Name": "API Architecture Manual",
+          "Type": "Documentation",
+          "Link/Path": "docs/ARCHITECTURE.md",
+          "Description": "Panduan arsitektur pengembangan, struktur folder, dan coding standards"
+        },
+        {
+          "Resource Name": "OpenAPI Contract v3.0",
+          "Type": "API Specification",
+          "Link/Path": "docs/openapi.yaml",
+          "Description": "Kontrak endpoint backend secara lengkap"
+        },
+        {
+          "Resource Name": "Swagger UI Docs",
+          "Type": "Interactive Docs",
+          "Link/Path": "docs/swagger.html",
+          "Description": "Visualisasi interaktif untuk mencoba API route"
+        },
+        {
+          "Resource Name": "Live Backend URL",
+          "Type": "API Server",
+          "Link/Path": "https://golang-maenews-animae-id2569-ksgm0g96.leapcell.dev/api/v1",
+          "Description": "Server live endpoint untuk NEXT_PUBLIC_API_BASE_URL"
+        }
+      ]
+    }
+  ]
+}
