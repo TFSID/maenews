@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maenews API — Swagger</title>
+  <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5/swagger-ui.css" />
+  <style>
+    html {
+      box-sizing: border-box;
+      overflow-y: scroll;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: inherit;
+    }
+
+    body {
+      margin: 0;
+      background: #fafafa;
+    }
+
+    .topbar {
+      display: none !important;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="swagger-ui"></div>
+  <script src="https://unpkg.com/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
+  <script>
+    // OpenAPI spec embedded inline — works from file:// and localhost
+    const spec = {
+      openapi: "3.0.3",
+      info: {
+        title: "Maenews API",
+        description: "REST API untuk portal berita anime, manga, dan kultur pop Jepang — **Maenews**.\nAPI ini menyediakan endpoint untuk mengakses artikel, trending items, events, dan fitur pencarian.",
+        version: "1.0.0",
+        contact: { name: "Tim Animae", url: "https://animae.id" }
+      },
+      servers: [
+        { url: "https://golang-maenews-animae-id2569-ksgm0g96.leapcell.dev/api/v1", description: "Production" },
+        { url: "http://localhost:3000/api/v1", description: "Local Development" }
+      ],
+      tags: [
+        { name: "Articles", description: "Operasi CRUD untuk artikel berita" },
+        { name: "Trending", description: "Item yang sedang trending" },
+        { name: "Events", description: "Event/acara mendatang" },
+        { name: "Search", description: "Pencarian artikel" }
+      ],
+      paths: {
+        "/articles": {
+          get: {
+            tags: ["Articles"],
+            summary: "Get all articles",
+            description: "Mengambil seluruh daftar artikel berita.",
+            operationId: "getAllArticles",
+            responses: {
+              "200": {
+                description: "Daftar artikel berhasil diambil",
+                content: { "application/json": { schema: { type: "array", items: { $ref: "#/components/schemas/Article" } } } }
+              },
+              "500": { $ref: "#/components/responses/InternalError" }
+            }
+          }
+        },
+        "/articles/{slug}": {
+          get: {
+            tags: ["Articles"],
+            summary: "Get article by slug",
+            description: "Mengambil detail satu artikel berdasarkan slug URL.",
+            operationId: "getArticleBySlug",
+            parameters: [{ $ref: "#/components/parameters/SlugParam" }],
+            responses: {
+              "200": {
+                description: "Detail artikel",
+                content: { "application/json": { schema: { $ref: "#/components/schemas/Article" } } }
+              },
+              "404": { $ref: "#/components/responses/NotFound" },
+              "500": { $ref: "#/components/responses/InternalError" }
+            }
+          }
+        },
+        "/articles/{slug}/view": {
+          post: {
+            tags: ["Articles"],
+            summary: "Increment article view count",
+            description: "Menambah jumlah view untuk artikel tertentu. Fire-and-forget.",
+            operationId: "incrementArticleView",
+            parameters: [{ $ref: "#/components/parameters/SlugParam" }],
+            responses: {
+              "204": { description: "View count berhasil ditambahkan" },
+              "404": { $ref: "#/components/responses/NotFound" }
+            }
+          }
+        },
+        "/category/{categoryName}": {
+          get: {
+            tags: ["Articles"],
+            summary: "Get articles by category",
+            description: "Mengambil artikel berdasarkan nama kategori (slug format).",
+            operationId: "getArticlesByCategory",
+            parameters: [{
+              name: "categoryName", in: "path", required: true,
+              description: "Slug kategori (e.g. anime, manga, content-creator, game, cosplay)",
+              schema: { type: "string", example: "anime" }
+            }],
+            responses: {
+              "200": {
+                description: "Daftar artikel dalam kategori",
+                content: { "application/json": { schema: { type: "array", items: { $ref: "#/components/schemas/Article" } } } }
+              },
+              "500": { $ref: "#/components/responses/InternalError" }
+            }
+          }
+        },
+        "/tag/{tagName}": {
+          get: {
+            tags: ["Articles"],
+            summary: "Get articles by tag",
+            description: "Mengambil artikel berdasarkan nama tag (slug format).",
+            operationId: "getArticlesByTag",
+            parameters: [{
+              name: "tagName", in: "path", required: true,
+              description: "Slug tag (e.g. attack-on-titan, studio-ghibli)",
+              schema: { type: "string", example: "one-piece" }
+            }],
+            responses: {
+              "200": {
+                description: "Daftar artikel dengan tag tersebut",
+                content: { "application/json": { schema: { type: "array", items: { $ref: "#/components/schemas/Article" } } } }
+              },
+              "500": { $ref: "#/components/responses/InternalError" }
+            }
+          }
+        },
+        "/trending": {
+          get: {
+            tags: ["Trending"],
+            summary: "Get trending items",
+            description: "Mengambil daftar item yang sedang trending.",
+            operationId: "getTrendingItems",
+            responses: {
+              "200": {
+                description: "Daftar trending items",
+                content: { "application/json": { schema: { type: "array", items: { $ref: "#/components/schemas/TrendingItem" } } } }
+              },
+              "500": { $ref: "#/components/responses/InternalError" }
+            }
+          }
+        },
+        "/events/upcoming": {
+          get: {
+            tags: ["Events"],
+            summary: "Get upcoming events",
+            description: "Mengambil daftar event/acara mendatang.",
+            operationId: "getUpcomingEvents",
+            responses: {
+              "200": {
+                description: "Daftar upcoming events",
+                content: { "application/json": { schema: { type: "array", items: { $ref: "#/components/schemas/Event" } } } }
+              },
+              "500": { $ref: "#/components/responses/InternalError" }
+            }
+          }
+        },
+        "/events/{slug}": {
+          get: {
+            tags: ["Events"],
+            summary: "Get event by slug",
+            description: "Mengambil detail satu event berdasarkan slug.",
+            operationId: "getEventBySlug",
+            parameters: [{ $ref: "#/components/parameters/SlugParam" }],
+            responses: {
+              "200": {
+                description: "Detail event",
+                content: { "application/json": { schema: { $ref: "#/components/schemas/Event" } } }
+              },
+              "404": { $ref: "#/components/responses/NotFound" },
+              "500": { $ref: "#/components/responses/InternalError" }
+            }
+          }
+        },
+        "/search/{query}": {
+          get: {
+            tags: ["Search"],
+            summary: "Search articles",
+            description: "Mencari artikel berdasarkan kata kunci di judul, excerpt, dan tags.",
+            operationId: "searchArticles",
+            parameters: [{
+              name: "query", in: "path", required: true,
+              description: "Kata kunci pencarian",
+              schema: { type: "string", example: "demon slayer" }
+            }],
+            responses: {
+              "200": {
+                description: "Hasil pencarian",
+                content: { "application/json": { schema: { type: "array", items: { $ref: "#/components/schemas/Article" } } } }
+              },
+              "500": { $ref: "#/components/responses/InternalError" }
+            }
+          }
+        }
+      },
+      components: {
+        parameters: {
+          SlugParam: {
+            name: "slug", in: "path", required: true,
+            description: "URL-friendly identifier unik",
+            schema: { type: "string", example: "attack-on-titan-final-season" }
+          }
+        },
+        schemas: {
+          Article: {
+            type: "object",
+            required: ["id", "title", "slug", "excerpt", "description", "category", "author", "publishedAt", "imageUrl", "tags", "featured", "views"],
+            properties: {
+              id: { type: "string", example: "1" },
+              title: { type: "string", example: "Studio Ghibli Umumkan Proyek Anime Terbaru untuk 2026" },
+              slug: { type: "string", example: "studio-ghibli-umumkan-proyek-anime-terbaru-untuk-2026" },
+              excerpt: { type: "string", example: "Miyazaki kembali dengan karya masterpiece terbaru." },
+              description: { type: "string", example: "Studio Ghibli kembali mencuri perhatian dunia animasi." },
+              category: { type: "string", enum: ["Anime", "Manga", "Game", "Content Creator", "Cosplay"], example: "Anime" },
+              author: { type: "string", example: "Redaksi AnimeFeed" },
+              publishedAt: { type: "string", format: "date-time", example: "2025-07-30T10:30:00Z" },
+              imageUrl: { type: "string", format: "uri", example: "https://placehold.co/600x400/1E293B/FFFFFF?text=Ghibli+News" },
+              tags: { type: "array", items: { type: "string" }, example: ["Studio Ghibli", "Miyazaki", "Anime Movie"] },
+              featured: { type: "boolean", example: false },
+              views: { type: "integer", example: 876 }
+            }
+          },
+          TrendingItem: {
+            type: "object",
+            required: ["id", "title", "description", "slug", "category", "publishedAt"],
+            properties: {
+              id: { type: "string", example: "trending-1" },
+              title: { type: "string", example: "Demon Slayer Season 4 Dikonfirmasi" },
+              description: { type: "string", example: "Studio Ufotable mengumumkan kelanjutan anime fenomenal ini." },
+              slug: { type: "string", example: "demon-slayer-season-4-dikonfirmasi" },
+              category: { type: "string", example: "Anime" },
+              publishedAt: { type: "string", format: "date-time", example: "2025-07-30T10:00:00Z" }
+            }
+          },
+          Event: {
+            type: "object",
+            required: ["id", "title", "slug", "location", "date", "category", "description", "imageUrl"],
+            properties: {
+              id: { type: "string", example: "event-1" },
+              title: { type: "string", example: "Comic Frontier 17" },
+              slug: { type: "string", example: "comic-frontier-17" },
+              location: { type: "string", example: "ICE BSD, Tangerang" },
+              date: { type: "string", format: "date-time", example: "2025-09-06T10:00:00Z" },
+              category: { type: "string", example: "Convention" },
+              description: { type: "string", example: "Event doujin dan indie creator terbesar di Indonesia." },
+              imageUrl: { type: "string", format: "uri", example: "https://placehold.co/400x300/7C2D12/FFFFFF?text=Comifuro+17" }
+            }
+          },
+          ErrorResponse: {
+            type: "object",
+            properties: {
+              message: { type: "string", example: "Resource not found" },
+              status: { type: "integer", example: 404 }
+            }
+          }
+        },
+        responses: {
+          NotFound: {
+            description: "Resource tidak ditemukan",
+            content: { "application/json": { schema: { $ref: "#/components/schemas/ErrorResponse" } } }
+          },
+          InternalError: {
+            description: "Internal server error",
+            content: { "application/json": { schema: { $ref: "#/components/schemas/ErrorResponse" } } }
+          }
+        }
+      }
+    };
+
+    SwaggerUIBundle({
+      spec: spec,
+      dom_id: "#swagger-ui",
+      deepLinking: true,
+      presets: [
+        SwaggerUIBundle.presets.apis,
+        SwaggerUIBundle.SwaggerUIStandalonePreset,
+      ],
+      layout: "BaseLayout",
+    });
+  </script>
+</body>
+
+</html>
