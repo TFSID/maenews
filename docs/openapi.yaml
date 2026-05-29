@@ -13,7 +13,7 @@ info:
 servers:
   - url: https://golang-maenews-animae-id2569-ksgm0g96.leapcell.dev/api/v1
     description: Production
-  - url: http://localhost:3000/api/v1
+  - url: http://127.0.0.1:8080/api/v1
     description: Local Development
 
 tags:
