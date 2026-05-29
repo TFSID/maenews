@@ -32,22 +32,18 @@
 <body>
   <div id="swagger-ui"></div>
   <script src="https://unpkg.com/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
-  <script src="https://unpkg.com/js-yaml@4/dist/js-yaml.min.js"></script>
+  <script src="openapi.js"></script>
   <script>
-    fetch("openapi.yaml")
-      .then(r => r.text())
-      .then(text => {
-        SwaggerUIBundle({
-          spec: jsyaml.load(text),
-          dom_id: "#swagger-ui",
-          deepLinking: true,
-          presets: [
-            SwaggerUIBundle.presets.apis,
-            SwaggerUIBundle.SwaggerUIStandalonePreset,
-          ],
-          layout: "BaseLayout",
-        });
-      });
+    SwaggerUIBundle({
+      spec: window.__OPENAPI_SPEC__,
+      dom_id: "#swagger-ui",
+      deepLinking: true,
+      presets: [
+        SwaggerUIBundle.presets.apis,
+        SwaggerUIBundle.SwaggerUIStandalonePreset,
+      ],
+      layout: "BaseLayout",
+    });
   </script>
 </body>
 
