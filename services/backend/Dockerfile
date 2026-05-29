@@ -1,20 +1,27 @@
-# Stage 1: Builder
-FROM golang:1.22-alpine AS builder
+FROM golang:1.22-alpine
 WORKDIR /app
-COPY go.mod ./
-COPY *.go ./
-RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o server .
+COPY . ./
+CMD ["go", "run", "."]
 
-# Stage 2: Runner
-FROM alpine:3.19
-WORKDIR /app
+####### Dockerfile for Go Backend Service Production
+# # Stage 1: Builder
+# FROM golang:1.22-alpine AS builder
+# WORKDIR /app
+# # COPY go.mod ./
+# # COPY *.go ./
+# COPY . ./
+# RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o server .
 
-RUN apk --no-cache add ca-certificates tzdata
+# # Stage 2: Runner
+# FROM alpine:3.19
+# WORKDIR /app
 
-COPY --from=builder /app/server ./server
+# RUN apk --no-cache add ca-certificates tzdata
 
-RUN mkdir -p data uploads
+# # COPY --from=builder /app/server ./server
 
-EXPOSE 8080
+# # RUN mkdir -p data uploads
 
-CMD ["./server"]
+# # EXPOSE 8080
+
+# # CMD ["./server"]
