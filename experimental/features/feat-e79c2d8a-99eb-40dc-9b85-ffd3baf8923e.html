@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MaeNews | Merchandise Checkout Widget [PROTO]</title>
+  <style>
+    /* === VARIABEL PALET WARNA MAENEWS === */
+    :root {
+      --color-primary: #6B48FF;     /* Electric Indigo */
+      --color-accent: #FFB7C5;      /* Sakura Pink */
+      --color-bg: #0A0E1A;          /* Deep Navy */
+      --color-surface: #131929;     /* Surface Dark */
+      --color-text: #E8E8F0;        /* Light Text */
+      --color-cream: #FFF9F0;       /* Cream */
+      --font-main: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      --border-radius: 12px;
+      --spacing-base: 1rem;
+    }
+
+    /* === RESET & BASE === */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      font-family: var(--font-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* === HEADER PROTOTIPE === */
+    .proto-header {
+      background: linear-gradient(135deg, var(--color-surface), #1a1040);
+      padding: var(--spacing-base) calc(var(--spacing-base) * 1.5);
+      border-bottom: 1px solid var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .proto-header .brand { font-size: 1.4rem; font-weight: 800;
+      color: var(--color-accent); letter-spacing: -0.03em; }
+    .proto-header .phase-badge {
+      background: var(--color-primary); color: white;
+      font-size: 0.7rem; font-weight: 700; padding: 3px 10px;
+      border-radius: 999px; text-transform: uppercase; letter-spacing: 0.08em;
+    }
+
+    /* === KONTEN UTAMA === */
+    .proto-main { flex: 1; padding: calc(var(--spacing-base) * 1.5); display: flex; justify-content: center; align-items: center; }
+
+    /* === CTA BUTTON === */
+    .cta-btn {
+      display: inline-block; padding: 0.75rem 1.75rem;
+      background: var(--color-primary); color: white;
+      border: none; border-radius: var(--border-radius);
+      font-size: 1rem; font-weight: 700; cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+      text-decoration: none; width: 100%; text-align: center;
+      margin-top: 1rem;
+    }
+    .cta-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .cta-btn:active { transform: translateY(0); }
+
+    /* === FOOTER PROTO META === */
+    .proto-footer {
+      padding: var(--spacing-base);
+      text-align: center;
+      font-size: 0.7rem;
+      color: #555a7a;
+      border-top: 1px solid #1e2340;
+    }
+
+    /* === CHECKOUT WIDGET STYLES === */
+    .checkout-widget {
+      background-color: var(--color-surface);
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      border: 1px solid #1e2340;
+    }
+
+    .product-img {
+      width: 100%;
+      height: 200px;
+      background-color: #1a1040;
+      border-radius: calc(var(--border-radius) - 4px);
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--color-accent);
+      font-weight: bold;
+      border: 1px dashed var(--color-primary);
+    }
+
+    .product-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--color-cream);
+    }
+
+    .product-desc {
+      font-size: 0.9rem;
+      color: #a0a5b5;
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #1e2340;
+    }
+
+    .price {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--color-accent);
+    }
+
+    .quantity-control {
+      display: flex;
+      align-items: center;
+      background: #1a1040;
+      border-radius: 20px;
+      padding: 0.25rem;
+    }
+
+    .qty-btn {
+      background: transparent;
+      border: none;
+      color: var(--color-text);
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .qty-btn:hover { background: var(--color-primary); }
+
+    .qty-val {
+      padding: 0 0.75rem;
+      font-weight: 600;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      margin-bottom: 0.4rem;
+      color: #a0a5b5;
+    }
+
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 0.75rem;
+      background: #1a1040;
+      border: 1px solid #2a3050;
+      border-radius: 8px;
+      color: var(--color-text);
+      font-family: inherit;
+    }
+
+    .form-group input:focus, .form-group select:focus {
+      outline: none;
+      border-color: var(--color-primary);
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      font-weight: bold;
+      margin-top: 1rem;
+      font-size: 1.1rem;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Header: Identitas MaeNews & Badge Fase -->
+  <header class="proto-header">
+    <span class="brand">MaeNews</span>
+    <span class="phase-badge">Fase 2 · Experimental</span>
+  </header>
+
+  <!-- Area Konten Utama Prototipe -->
+  <main class="proto-main" id="proto-root">
+
+    <div class="checkout-widget">
+      <div class="product-img">[Gambar Merchandise / Photocard]</div>
+      <h2 class="product-title">Eksklusif Photocard Set @tfs_ind</h2>
+      <p class="product-desc">Koleksi photocard edisi terbatas "Sound × Story × Style". Termasuk tanda tangan digital dan akses ke private channel Discord.</p>
+
+      <div class="price-row">
+        <div class="price" id="unit-price" data-price="75000">Rp 75.000</div>
+        <div class="quantity-control">
+          <button class="qty-btn" id="btn-min">-</button>
+          <span class="qty-val" id="qty-display">1</span>
+          <button class="qty-btn" id="btn-plus">+</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="ukuran">Ukuran / Varian</label>
+        <select id="ukuran">
+          <option value="set-a">Set A (Daylight)</option>
+          <option value="set-b">Set B (Neon Night)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="discord-id">Discord Username (untuk role eksklusif)</label>
+        <input type="text" id="discord-id" placeholder="contoh: wibuwangi#1234">
+      </div>
+
+      <div class="total-row">
+        <span>Total:</span>
+        <span id="total-price" style="color: var(--color-accent)">Rp 75.000</span>
+      </div>
+
+      <button class="cta-btn" id="btn-checkout">Beli Sekarang</button>
+    </div>
+
+  </main>
+
+  <!-- Footer Meta Prototipe -->
+  <footer class="proto-footer">
+    MaeNews Experimental · feat-e79c2d8a-99eb-40dc-9b85-ffd3baf8923e · Dibuat oleh Google Jules Agent
+  </footer>
+
+  <script>
+    /**
+     * ============================================================
+     * MAENEWS PROTOTYPE SCRIPT
+     * File ID : feat-e79c2d8a-99eb-40dc-9b85-ffd3baf8923e
+     * Feature : Merchandise Checkout Widget
+     * ============================================================
+     */
+
+    // === INISIALISASI: Jalankan setelah DOM siap ===
+    document.addEventListener('DOMContentLoaded', function() {
+
+      const btnMin = document.getElementById('btn-min');
+      const btnPlus = document.getElementById('btn-plus');
+      const qtyDisplay = document.getElementById('qty-display');
+      const totalPriceDisplay = document.getElementById('total-price');
+      const unitPriceElem = document.getElementById('unit-price');
+      const btnCheckout = document.getElementById('btn-checkout');
+
+      // Ambil harga satuan dari atribut data
+      const unitPrice = parseInt(unitPriceElem.getAttribute('data-price'));
+      let quantity = 1;
+
+      // Fungsi update tampilan harga total
+      function updateTotal() {
+        const total = quantity * unitPrice;
+        totalPriceDisplay.textContent = 'Rp ' + total.toLocaleString('id-ID');
+        qtyDisplay.textContent = quantity;
+      }
+
+      // Event listener tombol kurangi
+      btnMin.addEventListener('click', function() {
+        if (quantity > 1) {
+          quantity--;
+          updateTotal();
+        }
+      });
+
+      // Event listener tombol tambah
+      btnPlus.addEventListener('click', function() {
+        if (quantity < 10) { // Batas max 10
+          quantity++;
+          updateTotal();
+        } else {
+          alert('Maksimal pembelian adalah 10 item.');
+        }
+      });
+
+      // Event listener tombol checkout
+      btnCheckout.addEventListener('click', function() {
+        const discordId = document.getElementById('discord-id').value;
+        const varian = document.getElementById('ukuran').value;
+
+        if (!discordId) {
+          alert('Mohon isi Discord Username Anda untuk klaim benefit komunitas!');
+          return;
+        }
+
+        alert(`Memproses pembelian:\n- Item: Eksklusif Photocard Set @tfs_ind\n- Varian: ${varian}\n- Jumlah: ${quantity}\n- Discord ID: ${discordId}\n- Total: Rp ${(quantity * unitPrice).toLocaleString('id-ID')}\n\nIni adalah prototipe, Anda akan diarahkan ke gateway pembayaran.`);
+      });
+
+    });
+  </script>
+
+</body>
+</html>
