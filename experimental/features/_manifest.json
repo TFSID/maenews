@@ -1,4 +1,40 @@
 {
+  "prototypes": [
+    {
+      "file_id": "feat-0ae6d6a0-2b3c-4e3f-84c1-31a95d825a58",
+      "filename": "feat-discord-widget-0ae6d6a0-2b3c-4e3f-84c1-31a95d825a58.html",
+      "path": "experimental/features/feat-discord-widget-0ae6d6a0-2b3c-4e3f-84c1-31a95d825a58.html",
+      "feature_label": "Discord Conversion Widget",
+      "strategic_phase": "1",
+      "use_case_summary": "Konversi pembaca menjadi anggota komunitas Discord (Top of the Funnel to Community)",
+      "core_logic_tags": [
+        "widget",
+        "discord",
+        "conversion"
+      ],
+      "target_user_segment": "Pengguna Discord komunitas AniMae",
+      "created_at": "2026-05-30T21:34:35+00:00",
+      "pr_reference": "initial-scan",
+      "status": "experimental"
+    },
+    {
+      "file_id": "feat-e79c2d8a-99eb-40dc-9b85-ffd3baf8923e",
+      "filename": "feat-e79c2d8a-99eb-40dc-9b85-ffd3baf8923e.html",
+      "path": "experimental/features/feat-e79c2d8a-99eb-40dc-9b85-ffd3baf8923e.html",
+      "feature_label": "Merchandise Checkout Widget",
+      "strategic_phase": "2",
+      "use_case_summary": "Fitur checkout interaktif untuk pembelian merchandise fandom dan pemesanan photocard",
+      "core_logic_tags": [
+        "checkout",
+        "ecommerce",
+        "merchandise"
+      ],
+      "target_user_segment": "Penggemar Anime & J-Pop Casual (pembaca berita)",
+      "created_at": "2026-05-30T21:35:29+00:00",
+      "pr_reference": "pending",
+      "status": "experimental"
+    }
+  ]
     "features": [
         {
             "id": "3c979fa9-0a71-4c2c-9f51-ba59bd1b0431",
