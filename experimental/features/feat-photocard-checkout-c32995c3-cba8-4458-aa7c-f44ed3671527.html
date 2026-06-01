@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photocard Checkout - MaeNews</title>
+    <style>
+        /* Skema Warna:
+           Deep Navy: #0a0a2a (Background/Text)
+           Sakura Pink: #ffb7c5 (Aksen/Tombol)
+           Electric Indigo: #6600ff (Sorotan/Border)
+           Cream: #fffdd0 (Kartu/Background Sekunder)
+        */
+        :root {
+            --deep-navy: #0a0a2a;
+            --sakura-pink: #ffb7c5;
+            --electric-indigo: #6600ff;
+            --cream: #fffdd0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--deep-navy);
+            color: var(--cream);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: var(--cream);
+            color: var(--deep-navy);
+            width: 100%;
+            max-width: 400px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(102, 0, 255, 0.2);
+            margin: 20px;
+        }
+
+        .header {
+            background-color: var(--electric-indigo);
+            color: var(--cream);
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        .header p {
+            margin: 5px 0 0;
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .product-preview {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-bottom: 2px dashed var(--sakura-pink);
+        }
+
+        .photocard-mockup {
+            width: 150px;
+            height: 210px;
+            background: linear-gradient(135deg, var(--sakura-pink), var(--electric-indigo));
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+            border: 3px solid white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .photocard-mockup::after {
+            content: "Holographic";
+            position: absolute;
+            bottom: 10px;
+            background: rgba(255,255,255,0.8);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            color: var(--electric-indigo);
+        }
+
+        .product-info {
+            text-align: center;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .product-price {
+            font-size: 1.3rem;
+            color: var(--electric-indigo);
+            font-weight: 900;
+        }
+
+        .checkout-form {
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--deep-navy);
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            box-sizing: border-box;
+            background-color: white;
+            color: var(--deep-navy);
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--electric-indigo);
+            box-shadow: 0 0 0 2px rgba(102, 0, 255, 0.2);
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            overflow: hidden;
+            width: 120px;
+        }
+
+        .qty-btn {
+            background: none;
+            border: none;
+            padding: 10px 15px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--electric-indigo);
+            font-weight: bold;
+        }
+
+        .qty-btn:hover {
+            background-color: var(--sakura-pink);
+            color: var(--deep-navy);
+        }
+
+        .qty-input {
+            width: 40px;
+            text-align: center;
+            border: none;
+            font-weight: bold;
+            -moz-appearance: textfield;
+        }
+
+        .qty-input::-webkit-outer-spin-button,
+        .qty-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .total-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-top: 1px solid #ddd;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .total-label {
+            font-size: 1.1rem;
+        }
+
+        .total-amount {
+            font-size: 1.4rem;
+            color: var(--electric-indigo);
+        }
+
+        .submit-btn {
+            width: 100%;
+            background-color: var(--sakura-pink);
+            color: var(--deep-navy);
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .submit-btn:hover {
+            background-color: #ff9eb0;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(255, 183, 197, 0.4);
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 10, 42, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: var(--cream);
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+            max-width: 300px;
+            border: 2px solid var(--electric-indigo);
+        }
+
+        .modal-icon {
+            font-size: 3rem;
+            color: var(--electric-indigo);
+            margin-bottom: 15px;
+        }
+
+        .modal-close {
+            margin-top: 20px;
+            background: var(--electric-indigo);
+            color: var(--cream);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Presale Eksklusif</h1>
+            <p>Edisi Terbatas Kreator @tfs_ind</p>
+        </div>
+
+        <!-- Pratinjau Produk -->
+        <div class="product-preview">
+            <div class="photocard-mockup">
+                <span style="color: white; font-weight: bold; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">@tfs_ind</span>
+            </div>
+            <div class="product-info">
+                <div class="product-title">Set Photocard "Sakura Echoes"</div>
+                <div class="product-price">Rp 45.000</div>
+            </div>
+        </div>
+
+        <!-- Formulir Pembayaran/Checkout -->
+        <div class="checkout-form">
+            <div class="form-group">
+                <label for="namaLengkap">Nama Lengkap</label>
+                <input type="text" id="namaLengkap" placeholder="Masukkan nama Anda">
+            </div>
+
+            <div class="form-group">
+                <label for="idDiscord">Username Discord (Opsional)</label>
+                <input type="text" id="idDiscord" placeholder="@username">
+            </div>
+
+            <div class="form-group">
+                <label for="pengiriman">Metode Pengiriman</label>
+                <select id="pengiriman">
+                    <option value="reguler">Reguler (Rp 15.000)</option>
+                    <option value="pickup">Ambil di Event AniMae (Gratis)</option>
+                </select>
+            </div>
+
+            <div class="form-group" style="display: flex; justify-content: space-between; align-items: center;">
+                <label style="margin: 0;">Jumlah Set</label>
+                <div class="quantity-control">
+                    <button class="qty-btn" id="btnMin">-</button>
+                    <input type="number" class="qty-input" id="qtyInput" value="1" min="1" max="10" readonly>
+                    <button class="qty-btn" id="btnPlus">+</button>
+                </div>
+            </div>
+
+            <div class="total-section">
+                <span class="total-label">Total Bayar:</span>
+                <span class="total-amount" id="totalAmount">Rp 60.000</span>
+            </div>
+
+            <button class="submit-btn" id="btnPesan">Pesan Sekarang</button>
+        </div>
+    </div>
+
+    <!-- Modal Konfirmasi -->
+    <div class="modal-overlay" id="modalKonfirmasi">
+        <div class="modal-content">
+            <div class="modal-icon">✨</div>
+            <h2 style="color: var(--deep-navy); margin-top: 0;">Pesanan Diterima!</h2>
+            <p style="color: #555; font-size: 0.9rem;">Prototipe checkout berhasil. Di versi live, Anda akan diarahkan ke payment gateway.</p>
+            <button class="modal-close" id="btnCloseModal">Tutup</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Logika Harga
+            const hargaPerItem = 45000;
+            let qty = 1;
+            let ongkir = 15000;
+
+            const qtyInput = document.getElementById('qtyInput');
+            const btnMin = document.getElementById('btnMin');
+            const btnPlus = document.getElementById('btnPlus');
+            const totalAmountDisplay = document.getElementById('totalAmount');
+            const pengirimanSelect = document.getElementById('pengiriman');
+
+            // Fungsi Update Total
+            function updateTotal() {
+                const total = (hargaPerItem * qty) + ongkir;
+                // Format ke Rupiah
+                totalAmountDisplay.textContent = 'Rp ' + total.toLocaleString('id-ID');
+            }
+
+            // Event Listeners untuk Kuantitas
+            btnPlus.addEventListener('click', function() {
+                if(qty < 10) {
+                    qty++;
+                    qtyInput.value = qty;
+                    updateTotal();
+                }
+            });
+
+            btnMin.addEventListener('click', function() {
+                if(qty > 1) {
+                    qty--;
+                    qtyInput.value = qty;
+                    updateTotal();
+                }
+            });
+
+            // Event Listener untuk Pengiriman
+            pengirimanSelect.addEventListener('change', function(e) {
+                if(e.target.value === 'pickup') {
+                    ongkir = 0;
+                } else {
+                    ongkir = 15000;
+                }
+                updateTotal();
+            });
+
+            // Logika Modal
+            const btnPesan = document.getElementById('btnPesan');
+            const modalKonfirmasi = document.getElementById('modalKonfirmasi');
+            const btnCloseModal = document.getElementById('btnCloseModal');
+
+            btnPesan.addEventListener('click', function() {
+                // Validasi sederhana
+                const nama = document.getElementById('namaLengkap').value;
+                if(!nama) {
+                    alert('Mohon isi nama lengkap Anda.');
+                    return;
+                }
+                // Tampilkan Modal
+                modalKonfirmasi.style.display = 'flex';
+            });
+
+            btnCloseModal.addEventListener('click', function() {
+                modalKonfirmasi.style.display = 'none';
+            });
+
+            // Inisialisasi tampilan awal
+            updateTotal();
+        });
+    </script>
+
+</body>
+</html>
