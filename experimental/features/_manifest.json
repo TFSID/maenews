@@ -1,0 +1,25 @@
+[
+  {
+    "uuid": "5d40ab16-52be-4191-bf69-1fbc8c5f5197",
+    "file": "feat-5d40ab16-52be-4191-bf69-1fbc8c5f5197.html",
+    "label": "Photocard Catalog Commerce",
+    "phase": 2,
+    "segments": [
+      "cosplay",
+      "discord",
+      "casual"
+    ],
+    "category": "catalog-commerce",
+    "summary": "Simulasi keranjang belanja dan checkout untuk photocard cosplayer dan kreator.",
+    "core_logic": "State keranjang, filter kategori produk, kalkulasi total harga, modal checkout.",
+    "interactions": [
+      "filter kategori",
+      "tambah ke keranjang",
+      "buka tutup modal",
+      "ubah jumlah barang",
+      "simulasi checkout"
+    ],
+    "created_at": "2023-10-27",
+    "generator": "gemini-3-pro/google-jules/v3.0"
+  }
+]

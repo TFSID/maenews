@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <!--
+    @feature_meta
+    uuid:        5d40ab16-52be-4191-bf69-1fbc8c5f5197
+    label:       Photocard Catalog Commerce
+    phase:       2
+    segments:    cosplay,discord,casual
+    category:    catalog-commerce
+    summary:     Simulasi keranjang belanja dan checkout untuk photocard cosplayer dan kreator.
+    core_logic:  State keranjang, filter kategori produk, kalkulasi total harga, modal checkout.
+    created_at:  2023-10-27
+    generator:   gemini-3-pro / google-jules / v3.0
+    -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photocard Catalog - MaeNews</title>
+    <style>
+        :root {
+            --deep-navy: #1a1a2e;
+            --sakura-pink: #ffb7b2;
+            --electric-indigo: #4a00e0;
+            --cream: #f4f1ea;
+            --dark-bg: #121212;
+            --card-bg: #1e1e2f;
+            --text-light: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: var(--deep-navy);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--electric-indigo);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        h1 {
+            color: var(--sakura-pink);
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .cart-btn {
+            background-color: var(--electric-indigo);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            position: relative;
+            min-width: 44px;
+            min-height: 44px;
+            transition: transform 0.2s;
+        }
+
+        .cart-btn:active {
+            transform: scale(0.95);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: var(--sakura-pink);
+            color: var(--deep-navy);
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            display: none; /* Hidden initially */
+        }
+
+        main {
+            flex-grow: 1;
+            padding: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .filters {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .filter-btn {
+            background-color: transparent;
+            border: 1px solid var(--electric-indigo);
+            color: var(--text-light);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            white-space: nowrap;
+            cursor: pointer;
+            min-height: 44px;
+            transition: background-color 0.2s;
+        }
+
+        .filter-btn.active {
+            background-color: var(--electric-indigo);
+            color: white;
+        }
+
+        .catalog {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .product-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #333;
+        }
+
+        .product-img {
+            width: 100%;
+            aspect-ratio: 3/4;
+            background: linear-gradient(45deg, var(--deep-navy), var(--electric-indigo));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--sakura-pink);
+            font-size: 2rem;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .product-img::after {
+             content: "PC";
+             opacity: 0.3;
+        }
+
+        .product-info {
+            padding: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-title {
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+            font-weight: 600;
+        }
+
+        .product-creator {
+            font-size: 0.7rem;
+            color: #aaa;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            color: var(--sakura-pink);
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+            margin-top: auto;
+        }
+
+        .add-btn {
+            background-color: transparent;
+            border: 1px solid var(--sakura-pink);
+            color: var(--sakura-pink);
+            padding: 0.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-align: center;
+            min-height: 44px;
+            transition: all 0.2s;
+        }
+
+        .add-btn:active {
+            background-color: var(--sakura-pink);
+            color: var(--deep-navy);
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: flex-end; /* Mobile-first bottom sheet */
+            z-index: 100;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .cart-modal {
+            background-color: var(--card-bg);
+            width: 100%;
+            max-width: 600px;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            padding: 1.5rem;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #444;
+            padding-bottom: 1rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.5rem;
+            cursor: pointer;
+            min-height: 44px;
+            min-width: 44px;
+        }
+
+        .cart-items {
+            overflow-y: auto;
+            flex-grow: 1;
+            margin-bottom: 1rem;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px dashed #444;
+        }
+
+        .cart-item-info {
+            flex-grow: 1;
+        }
+
+        .cart-item-title {
+            font-size: 0.9rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .cart-item-price {
+            color: var(--sakura-pink);
+            font-size: 0.8rem;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .qty-btn {
+            background-color: #333;
+            border: none;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--sakura-pink);
+        }
+
+        .checkout-btn {
+            background-color: var(--electric-indigo);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            min-height: 44px;
+        }
+
+        .empty-cart-msg {
+            text-align: center;
+            color: #888;
+            padding: 2rem 0;
+            font-style: italic;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--sakura-pink);
+            color: var(--deep-navy);
+            padding: 0.75rem 1.5rem;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>AniMae Shop</h1>
+        <button class="cart-btn" onclick="toggleCart()">
+            🛒 Cart
+            <span class="cart-badge" id="cart-badge">0</span>
+        </button>
+    </header>
+
+    <main>
+        <div class="filters" id="filter-container">
+            <button class="filter-btn active" onclick="setFilter('all')">Semua</button>
+            <button class="filter-btn" onclick="setFilter('cosplay')">Cosplay</button>
+            <button class="filter-btn" onclick="setFilter('music')">Music</button>
+            <button class="filter-btn" onclick="setFilter('event')">Event</button>
+        </div>
+
+        <div class="catalog" id="catalog-container">
+            <!-- Products will be injected here by JS -->
+        </div>
+    </main>
+
+    <!-- Cart Modal -->
+    <div class="modal-overlay" id="cart-modal">
+        <div class="cart-modal">
+            <div class="modal-header">
+                <h2>Keranjang Belanja</h2>
+                <button class="close-btn" onclick="toggleCart()">×</button>
+            </div>
+
+            <div class="cart-items" id="cart-items-container">
+                <!-- Cart items injected here -->
+                <div class="empty-cart-msg">Keranjang masih kosong nih!</div>
+            </div>
+
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cart-total-price">Rp 0</span>
+            </div>
+
+            <button class="checkout-btn" onclick="checkout()">Checkout Sekarang</button>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">Ditambahkan ke keranjang!</div>
+
+    <script>
+        // Dummy Data
+        const products = [
+            { id: 1, title: "Summer Matsuri Set", creator: "@tfs_ind", price: 50000, category: "music" },
+            { id: 2, title: "Cyberpunk Maid", creator: "@cosplay_id", price: 45000, category: "cosplay" },
+            { id: 3, title: "Gigs Vol. 2 Excl.", creator: "AniMae Official", price: 35000, category: "event" },
+            { id: 4, title: "School Uniform Ver.", creator: "@tfs_ind", price: 50000, category: "music" },
+            { id: 5, title: "Fantasy Knight", creator: "@cosplay_id", price: 60000, category: "cosplay" },
+            { id: 6, title: "Anniv Concert VIP", creator: "AniMae Official", price: 40000, category: "event" }
+        ];
+
+        // State
+        let cart = {}; // format: { productId: quantity }
+        let currentFilter = 'all';
+
+        // Format Currency
+        const formatRp = (num) => {
+            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(num);
+        };
+
+        // Render Catalog
+        function renderCatalog() {
+            const container = document.getElementById('catalog-container');
+            container.innerHTML = '';
+
+            const filteredProducts = currentFilter === 'all'
+                ? products
+                : products.filter(p => p.category === currentFilter);
+
+            filteredProducts.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <div class="product-img"></div>
+                    <div class="product-info">
+                        <div class="product-title">${product.title}</div>
+                        <div class="product-creator">${product.creator}</div>
+                        <div class="product-price">${formatRp(product.price)}</div>
+                        <button class="add-btn" onclick="addToCart(${product.id})">Tambah</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Filter Logic
+        function setFilter(category) {
+            currentFilter = category;
+
+            // Update UI buttons
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                if (btn.textContent.toLowerCase() === category || (category === 'all' && btn.textContent === 'Semua')) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            renderCatalog();
+        }
+
+        // Cart Logic
+        function addToCart(id) {
+            if (cart[id]) {
+                cart[id]++;
+            } else {
+                cart[id] = 1;
+            }
+            updateCartUI();
+            showToast();
+        }
+
+        function updateCartQuantity(id, delta) {
+            if (cart[id]) {
+                cart[id] += delta;
+                if (cart[id] <= 0) {
+                    delete cart[id];
+                }
+                updateCartUI();
+                renderCartModal(); // Refresh modal content immediately
+            }
+        }
+
+        function updateCartUI() {
+            const badge = document.getElementById('cart-badge');
+            const totalItems = Object.values(cart).reduce((sum, qty) => sum + qty, 0);
+
+            if (totalItems > 0) {
+                badge.style.display = 'block';
+                badge.textContent = totalItems;
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        // Modal Logic
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            const isClosing = modal.classList.contains('active');
+
+            if (!isClosing) {
+                renderCartModal();
+                modal.classList.add('active');
+            } else {
+                modal.classList.remove('active');
+            }
+        }
+
+        function renderCartModal() {
+            const container = document.getElementById('cart-items-container');
+            const totalPriceElem = document.getElementById('cart-total-price');
+
+            const itemIds = Object.keys(cart);
+
+            if (itemIds.length === 0) {
+                container.innerHTML = '<div class="empty-cart-msg">Keranjang masih kosong nih!</div>';
+                totalPriceElem.textContent = 'Rp 0';
+                return;
+            }
+
+            container.innerHTML = '';
+            let total = 0;
+
+            itemIds.forEach(id => {
+                const product = products.find(p => p.id == id);
+                const qty = cart[id];
+                const subtotal = product.price * qty;
+                total += subtotal;
+
+                const itemHtml = document.createElement('div');
+                itemHtml.className = 'cart-item';
+                itemHtml.innerHTML = `
+                    <div class="cart-item-info">
+                        <div class="cart-item-title">${product.title}</div>
+                        <div class="cart-item-price">${formatRp(product.price)} x ${qty}</div>
+                    </div>
+                    <div class="cart-item-controls">
+                        <button class="qty-btn" onclick="updateCartQuantity(${id}, -1)">-</button>
+                        <span>${qty}</span>
+                        <button class="qty-btn" onclick="updateCartQuantity(${id}, 1)">+</button>
+                    </div>
+                `;
+                container.appendChild(itemHtml);
+            });
+
+            totalPriceElem.textContent = formatRp(total);
+        }
+
+        function checkout() {
+            if (Object.keys(cart).length === 0) {
+                alert("Keranjang kosong!");
+                return;
+            }
+            alert("Simulasi Checkout Berhasil! Mengarahkan ke gateway pembayaran...");
+            cart = {};
+            updateCartUI();
+            toggleCart();
+        }
+
+        // Toast Logic
+        let toastTimeout;
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        }
+
+        // Initial render
+        renderCatalog();
+
+    </script>
+</body>
+</html>
