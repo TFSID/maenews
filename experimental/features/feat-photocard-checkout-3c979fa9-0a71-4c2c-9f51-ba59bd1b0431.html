@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photocard Checkout - MaeNews</title>
+    <style>
+        /* Desain mobile-first menggunakan palet warna J-Pop */
+        :root {
+            --deep-navy: #0A1128;
+            --sakura-pink: #FFB7C5;
+            --electric-indigo: #6610F2;
+            --cream: #FFFDD0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--cream);
+            color: var(--deep-navy);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .checkout-container {
+            width: 100%;
+            max-width: 400px;
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background-color: var(--deep-navy);
+            color: var(--sakura-pink);
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .header p {
+            margin: 5px 0 0;
+            font-size: 0.9rem;
+            color: #ffffff;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        /* Tampilan Photocard */
+        .photocard-preview {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            align-items: center;
+            background-color: var(--cream);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid var(--sakura-pink);
+        }
+
+        .photocard-image {
+            width: 80px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--electric-indigo), var(--sakura-pink));
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 0.8rem;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(102, 16, 242, 0.3);
+        }
+
+        .photocard-details h2 {
+            margin: 0 0 5px;
+            font-size: 1.2rem;
+            color: var(--deep-navy);
+        }
+
+        .photocard-details p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .price {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--electric-indigo);
+            margin-top: 10px;
+        }
+
+        /* Formulir Checkout */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            background-color: #fafafa;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--electric-indigo);
+            outline: none;
+            background-color: #ffffff;
+        }
+
+        /* Pemilihan Jumlah */
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .quantity-btn {
+            background-color: var(--sakura-pink);
+            color: var(--deep-navy);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+
+        .quantity-btn:hover {
+            background-color: #ff9fb2;
+        }
+
+        .quantity-display {
+            font-size: 1.1rem;
+            font-weight: bold;
+            width: 30px;
+            text-align: center;
+        }
+
+        /* Rincian Harga */
+        .summary {
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 2px dashed #ddd;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--electric-indigo);
+        }
+
+        /* Tombol Bayar */
+        .checkout-btn {
+            background-color: var(--electric-indigo);
+            color: #ffffff;
+            border: none;
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 12px;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: transform 0.2s, background-color 0.2s;
+            box-shadow: 0 4px 15px rgba(102, 16, 242, 0.4);
+        }
+
+        .checkout-btn:hover {
+            background-color: #520dc2;
+            transform: translateY(-2px);
+        }
+
+        .checkout-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Pesan Sukses */
+        .success-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            z-index: 10;
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            color: var(--electric-indigo);
+            margin-bottom: 20px;
+        }
+
+        .success-title {
+            color: var(--deep-navy);
+            margin: 0 0 10px;
+        }
+
+        .success-desc {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .back-btn {
+            background-color: transparent;
+            color: var(--deep-navy);
+            border: 2px solid var(--deep-navy);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .back-btn:hover {
+            background-color: var(--deep-navy);
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="checkout-container" style="position: relative;">
+        <!-- Header -->
+        <div class="header">
+            <h1>MaeNews Shop</h1>
+            <p>Eksklusif Merchandise Fandom</p>
+        </div>
+
+        <div class="content">
+            <!-- Info Produk -->
+            <div class="photocard-preview">
+                <div class="photocard-image">
+                    Edisi<br>Terbatas
+                </div>
+                <div class="photocard-details">
+                    <h2>Photocard Set: @tfs_ind</h2>
+                    <p>Holographic Premium, isi 3 pcs</p>
+                    <div class="price" id="item-price" data-price="45000">Rp 45.000</div>
+                </div>
+            </div>
+
+            <!-- Form Pengiriman -->
+            <div class="form-group">
+                <label for="nama">Nama Lengkap</label>
+                <input type="text" id="nama" placeholder="Masukkan nama Anda" required>
+            </div>
+
+            <div class="form-group">
+                <label for="whatsapp">Nomor WhatsApp</label>
+                <input type="tel" id="whatsapp" placeholder="Contoh: 08123456789" required>
+            </div>
+
+            <div class="form-group">
+                <label>Jumlah Beli</label>
+                <div class="quantity-selector">
+                    <button class="quantity-btn" onclick="updateQuantity(-1)">-</button>
+                    <div class="quantity-display" id="quantity">1</div>
+                    <button class="quantity-btn" onclick="updateQuantity(1)">+</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="pembayaran">Metode Pembayaran</label>
+                <select id="pembayaran">
+                    <option value="qris">QRIS (OVO, Gopay, Dana, ShopeePay)</option>
+                    <option value="transfer">Transfer Bank (BCA, Mandiri, BNI)</option>
+                </select>
+            </div>
+
+            <!-- Rincian Biaya -->
+            <div class="summary">
+                <div class="summary-row">
+                    <span>Subtotal (<span id="summary-qty">1</span> barang)</span>
+                    <span id="summary-subtotal">Rp 45.000</span>
+                </div>
+                <div class="summary-row">
+                    <span>Biaya Layanan</span>
+                    <span>Rp 2.000</span>
+                </div>
+                <div class="summary-total">
+                    <span>Total Pembayaran</span>
+                    <span id="summary-total">Rp 47.000</span>
+                </div>
+            </div>
+
+            <button class="checkout-btn" onclick="prosesPembayaran()">Bayar Sekarang</button>
+        </div>
+
+        <!-- Overlay Sukses -->
+        <div class="success-overlay" id="success-view">
+            <div class="success-icon">✨</div>
+            <h2 class="success-title">Pesanan Berhasil Dibuat!</h2>
+            <p class="success-desc">Instruksi pembayaran telah dikirim ke nomor WhatsApp Anda. Segera selesaikan pembayaran agar photocard impianmu tidak kehabisan!</p>
+            <button class="back-btn" onclick="kembaliKeAwal()">Kembali ke Beranda</button>
+        </div>
+    </div>
+
+    <script>
+        // Logika Interaktif menggunakan Vanilla JS
+        let jumlahItem = 1;
+        const hargaPerItem = 45000;
+        const biayaLayanan = 2000;
+
+        function formatRupiah(angka) {
+            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(angka);
+        }
+
+        function updateQuantity(perubahan) {
+            let jumlahBaru = jumlahItem + perubahan;
+            // Batasan minimum 1, maksimum 5 untuk pembelian eksklusif
+            if (jumlahBaru >= 1 && jumlahBaru <= 5) {
+                jumlahItem = jumlahBaru;
+
+                // Update tampilan jumlah
+                document.getElementById('quantity').innerText = jumlahItem;
+                document.getElementById('summary-qty').innerText = jumlahItem;
+
+                // Kalkulasi harga
+                const subtotal = jumlahItem * hargaPerItem;
+                const total = subtotal + biayaLayanan;
+
+                // Update tampilan harga
+                document.getElementById('summary-subtotal').innerText = formatRupiah(subtotal);
+                document.getElementById('summary-total').innerText = formatRupiah(total);
+            } else if (jumlahBaru > 5) {
+                alert("Maksimal pembelian adalah 5 set per orang.");
+            }
+        }
+
+        function prosesPembayaran() {
+            const nama = document.getElementById('nama').value;
+            const whatsapp = document.getElementById('whatsapp').value;
+
+            // Validasi sederhana
+            if (!nama || !whatsapp) {
+                alert("Mohon lengkapi Nama dan Nomor WhatsApp terlebih dahulu.");
+                return;
+            }
+
+            // Simulasi proses loading dan berhasil
+            const btn = document.querySelector('.checkout-btn');
+            const teksAsli = btn.innerText;
+            btn.innerText = "Memproses...";
+            btn.style.opacity = "0.7";
+            btn.disabled = true;
+
+            setTimeout(() => {
+                // Tampilkan halaman sukses
+                document.getElementById('success-view').style.display = 'flex';
+
+                // Kembalikan state tombol
+                btn.innerText = teksAsli;
+                btn.style.opacity = "1";
+                btn.disabled = false;
+            }, 1500);
+        }
+
+        function kembaliKeAwal() {
+            // Reset formulir
+            document.getElementById('nama').value = '';
+            document.getElementById('whatsapp').value = '';
+
+            jumlahItem = 1;
+            updateQuantity(0); // Panggil untuk mereset tampilan angka
+
+            // Sembunyikan pesan sukses
+            document.getElementById('success-view').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

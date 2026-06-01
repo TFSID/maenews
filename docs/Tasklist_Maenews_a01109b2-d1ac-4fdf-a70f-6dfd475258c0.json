@@ -1,0 +1,159 @@
+{
+  "workbook_metadata": {
+    "file_path": "docs/Tasklist_Maenews_a01109b2-d1ac-4fdf-a70f-6dfd475258c0.xlsx",
+    "folder_creation_instruction": "mkdir -p docs/",
+    "generated_for": "Implementation Plan & Review",
+    "is_unique_draft": true,
+    "total_sheets": 4
+  },
+  "sheets": [
+    {
+      "sheet_name": "Executive Dashboard",
+      "description": "Ringkasan metrik (Overall Progress, Tasks by Status, Bottlenecks)",
+      "headers": [
+        "Metric",
+        "Value",
+        "Notes"
+      ],
+      "rows": [
+        {
+          "Metric": "Overall Progress",
+          "Value": "10%",
+          "Notes": "Tahap pengembangan fitur spesifik"
+        },
+        {
+          "Metric": "Total Tasks",
+          "Value": "6",
+          "Notes": "Diekstrak dari struktur repositori baru"
+        },
+        {
+          "Metric": "Tasks Completed",
+          "Value": "0",
+          "Notes": "Menunggu eksekusi"
+        },
+        {
+          "Metric": "Tasks In Progress",
+          "Value": "0",
+          "Notes": "Menunggu penugasan"
+        },
+        {
+          "Metric": "Bottlenecks",
+          "Value": "Pending API Validation",
+          "Notes": "Perlu testing integrasi live API"
+        }
+      ]
+    },
+    {
+      "sheet_name": "Master Tasklist",
+      "description": "Repositori utama pekerjaan yang di-generate dari REPOSITORY_KNOWLEDGE",
+      "headers": [
+        "Task ID",
+        "Deskripsi",
+        "PIC",
+        "Prioritas",
+        "Status",
+        "Timeline"
+      ],
+      "rows": [
+        {
+          "Task ID": "TSK-014",
+          "Deskripsi": "Implementasi halaman hasil pencarian (SearchPage) dengan filter lanjutan",
+          "PIC": "Frontend Engineer",
+          "Prioritas": "High",
+          "Status": "To Do",
+          "Timeline": "Sprint 3"
+        },
+        {
+          "Task ID": "TSK-015",
+          "Deskripsi": "Integrasi `apiEvents.ts` untuk fetching data dari `/events/upcoming` endpoint",
+          "PIC": "Backend Engineer",
+          "Prioritas": "Medium",
+          "Status": "To Do",
+          "Timeline": "Sprint 3"
+        },
+        {
+          "Task ID": "TSK-016",
+          "Deskripsi": "Membangun Sidebar komponen dengan Trending widget",
+          "PIC": "Frontend Engineer",
+          "Prioritas": "Medium",
+          "Status": "To Do",
+          "Timeline": "Sprint 4"
+        },
+        {
+          "Task ID": "TSK-017",
+          "Deskripsi": "Konfigurasi dan testing `next-themes` untuk dukungan Dark Mode",
+          "PIC": "Frontend Engineer",
+          "Prioritas": "Low",
+          "Status": "To Do",
+          "Timeline": "Sprint 4"
+        },
+        {
+          "Task ID": "TSK-018",
+          "Deskripsi": "Setup `ClientLayout.tsx` untuk membungkus Redux/Providers client-side",
+          "PIC": "Fullstack Engineer",
+          "Prioritas": "High",
+          "Status": "To Do",
+          "Timeline": "Sprint 2"
+        },
+        {
+          "Task ID": "TSK-019",
+          "Deskripsi": "Pembuatan komponen atomik reusable (Button, Input, Badge, Card) menggunakan Radix UI",
+          "PIC": "UI Engineer",
+          "Prioritas": "High",
+          "Status": "To Do",
+          "Timeline": "Sprint 2"
+        }
+      ]
+    },
+    {
+      "sheet_name": "Sprint/Update Tracker",
+      "description": "Log aktivitas harian/mingguan untuk proses tracking",
+      "headers": [
+        "Sprint ID",
+        "Task ID",
+        "Update Date",
+        "Activity Description",
+        "Blocker"
+      ],
+      "rows": [
+        {
+          "Sprint ID": "Sprint 2",
+          "Task ID": "TSK-019",
+          "Update Date": "2024-05-31",
+          "Activity Description": "Memulai pembuatan base UI components",
+          "Blocker": "Menunggu finalisasi design system warna utama"
+        }
+      ]
+    },
+    {
+      "sheet_name": "Documentation & Resources",
+      "description": "Manajemen aset dan referensi internal",
+      "headers": [
+        "Resource Name",
+        "Type",
+        "Link/Path",
+        "Description"
+      ],
+      "rows": [
+        {
+          "Resource Name": "Mock Data Event",
+          "Type": "Fixture",
+          "Link/Path": "app/data/mocks-data/mockEvents.ts",
+          "Description": "Data statis untuk testing halaman event"
+        },
+        {
+          "Resource Name": "Mock Data Trending",
+          "Type": "Fixture",
+          "Link/Path": "app/data/mocks-data/mockTrending.ts",
+          "Description": "Data statis untuk widget sidebar trending"
+        },
+        {
+          "Resource Name": "Theme Configuration",
+          "Type": "Config",
+          "Link/Path": "tailwind.config.ts",
+          "Description": "Konfigurasi palet warna dan styling font utama (Poppins, ADLaM Display)"
+        }
+      ]
+    }
+  ]
+}
