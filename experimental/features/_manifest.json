@@ -1,0 +1,13 @@
+{
+    "features": [
+        {
+            "id": "3c979fa9-0a71-4c2c-9f51-ba59bd1b0431",
+            "name": "Photocard Checkout",
+            "slug": "photocard-checkout",
+            "phase": "Fase Jangka Menengah (Monetisasi & Low-Ticket Sales)",
+            "description": "Interactive Fandom Merchandise Checkout for low-ticket sales.",
+            "file": "feat-photocard-checkout-3c979fa9-0a71-4c2c-9f51-ba59bd1b0431.html",
+            "created_at": "2024-05-30"
+        }
+    ]
+}
